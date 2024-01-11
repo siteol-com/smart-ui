@@ -2,7 +2,7 @@ import 'vue-router'
 
 declare module 'vue-router' {
   interface RouteMeta {
-    needAuth: boolean // 是否需要授权
+    needAuth?: boolean // 是否需要授权
     icon?: string // 图标
     locale?: string // 国际化文言
     hideInMenu?: boolean // 不显示在菜单

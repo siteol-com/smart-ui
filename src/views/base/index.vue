@@ -1,5 +1,5 @@
 <template>
-  <div class="container index">
+  <div class="layout index">
     <div class="wel" :class="{ done: done }">
       <div class="welogo">
         <img src="/public/static/img/logo.png" />
@@ -13,17 +13,29 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 // 默认欢迎语
 const tips = ref('base.welcome')
 const done = ref(false)
+// 读取登陆数据
+function readLogin() {
+  // TODO 读取登陆信息
+  setTimeout(() => {
+    // TODO  UI 临时跳转
+    setTimeout(() => {
+      router.push('/center/index')
+    }, 1500)
+  }, 500)
+}
 // 初始化方法
 function init() {
   // 基本数据加载完成
   setTimeout(() => {
     done.value = true
+    readLogin()
   }, 500)
-  // 读取登陆信息
 }
 // 界面渲染后
 onMounted(() => {

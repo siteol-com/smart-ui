@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@arco-design/web-vue": "^2.53.3",
-    "@vitejs/plugin-vue": "^4.5.0",
     "@types/nprogress": "^0.2.3",
+    "@vitejs/plugin-vue": "^4.5.0",
     "less": "^4.2.0",
     "prettier": "3.1.0",
     "typescript": "^5.2.2",

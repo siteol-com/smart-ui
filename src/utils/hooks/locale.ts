@@ -13,7 +13,7 @@ export default function useLocale() {
     }
     i18.locale.value = value
     localStorage.setItem('arco-locale', value)
-    Message.success(i18.t('base.locale.action'))
+    Message.success(i18.t('base.locale'))
   }
   return {
     currentLocale,

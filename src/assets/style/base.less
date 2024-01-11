@@ -23,11 +23,67 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
-
-.container {
+.layout {
+  width: 100%;
+  height: 100vh;
   background-color: var(--color-fill-2);
+  .logo-wrapper {
+    height: 60px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .menu-wrapper {
+    height: calc(100% - 60px);
+    padding: 10px;
+    overflow-y: auto;
+    overflow: auto;
+    overflow-x: hidden;
+    :deep(.arco-menu) {
+      ::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+      ::-webkit-scrollbar-thumb {
+        border: 0 solid transparent;
+        background-clip: padding-box;
+        border-radius: 0;
+        background-color: transparent;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .head-wrapper {
+    display: flex;
+    padding-left: 15px;
+    .head-left {
+      width: 32px;
+      margin-right: 15px;
+    }
+    .head-center {
+      width: calc(100% - 200px);
+    }
+    .head-right {
+      display: flex;
+      width: 140px;
+      margin-left: 15px;
+      .head-btn-item {
+        margin-right: 15px;
+      }
+    }
+    .head-btn {
+      background-color: var(--color-bg-1);
+      border-color: rgb(var(--gray-2));
+      margin: 14px 0;
+    }
+  }
+}
+.container {
   padding: 16px 20px 0;
-  display: flex
+  display: flex;
 }
 
 /* 布灵闪的动画效果 */
