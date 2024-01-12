@@ -20,7 +20,6 @@ function routerSentinelPush(router: Router) {
 function routerSentinelCheck(router: Router) {
   router.beforeEach(async (to, from, next) => {
     NProgress.start()
-    console.log(from + '>>' + to)
     next()
   })
 }

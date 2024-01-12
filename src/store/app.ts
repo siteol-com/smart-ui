@@ -3,16 +3,16 @@ import { defineStore } from 'pinia'
 interface AppState {
   collapsed: boolean // 折叠
   theme: string // 主题
-  headIconStyle: any // 顶部图标的字体大小
+  headIconSize: any // 顶部图标的字体大小
 }
 const appStore = defineStore('app', {
   state: (): AppState => ({
     collapsed: false,
-    theme: localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light',
+    theme: localStorage.getItem('theme') ? (localStorage.getItem('theme') as string) : 'light',
     headIconSize: { fontSize: '18px' }
   }),
   getters: {
-    getHeadIconSize() {
+    getHeadIconSize(): any {
       return this.headIconSize
     }
   },
@@ -30,10 +30,6 @@ const appStore = defineStore('app', {
     setCollapsed() {
       // 折叠状态更新
       this.collapsed = !this.collapsed
-    },
-    syncCollapsed(collapsed: boolean) {
-      // 同步折叠状态
-      this.collapsed = collapsed
     }
   }
 })

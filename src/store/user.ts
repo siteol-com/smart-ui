@@ -1,4 +1,7 @@
 import { defineStore } from 'pinia'
+import { RouteRecordRaw } from 'vue-router'
+import routers from '@/router/routers'
+import userMenuTree from '@/utils/hooks/menu'
 //import { logout as userLogout, getUserInfo } from '@/api/user'
 //import { authLogin, AuthLoginReq } from '@/api/open/auth'
 //import { setToken, clearToken } from '@/utils/auth'
@@ -8,13 +11,15 @@ interface UserState {
   name?: string
   avatar?: string
   permissions: string[] // 权限列表
+  menusTree: RouteRecordRaw[] // 菜单树
 }
 
 const userStore = defineStore('user', {
   state: (): UserState => ({
     name: undefined,
     avatar: undefined,
-    permissions: ['all']
+    permissions: [],
+    menusTree: []
   }),
 
   getters: {
@@ -24,11 +29,11 @@ const userStore = defineStore('user', {
   },
 
   actions: {
-    // Set user's information
-    setInfo(partial: Partial<UserState>) {
-      this.$patch(partial)
+    initMenusTree() {
+      const { recursionRouters } = userMenuTree()
+      // 初始化用户菜单树
+      this.menusTree = recursionRouters(routers)
     },
-
     // Reset user's information
     resetInfo() {
       this.$reset()

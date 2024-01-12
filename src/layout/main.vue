@@ -1,12 +1,12 @@
 <template>
   <a-layout class="layout" :class="{ collapsed: collapsed }">
     <!-- 左侧导航栏 -->
-    <a-layout-sider hide-trigger collapsible :width="220" :collapsed-width="60" :collapsed="collapsed" @collapse="syncCollapsed">
+    <a-layout-sider hide-trigger collapsible :width="220" :collapsed-width="60" :collapsed="collapsed">
       <div class="logo-wrapper">
         <img :src="logo[collapsed ? 'collapsed' : theme]" />
       </div>
       <div class="menu-wrapper">
-        <Menus />
+        <SMenu />
       </div>
     </a-layout-sider>
     <a-layout class="layout-content">
@@ -21,6 +21,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import SHead from '@/components/sHead.vue'
+import SMenu from '@/components/sMenu.vue'
 import Full from './full.vue' // 全屏路由模式
 import { appStore } from '@/store'
 // 应用配置
@@ -33,7 +34,6 @@ const theme = computed(() => {
 const collapsed = computed(() => {
   return app.collapsed
 })
-const { syncCollapsed } = app
 // LOGO数据
 const logo: any = {
   light: '/public/static/img/logo.png',
