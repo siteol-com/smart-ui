@@ -15,7 +15,6 @@ export interface TagProps {
   name: string
   fullPath: string
   query?: any
-  ignoreCache?: boolean
   isHome: boolean
 }
 
@@ -27,7 +26,6 @@ const routerToTag = (route: RouteLocationNormalized): TagProps => {
     name: String(name),
     fullPath,
     query,
-    ignoreCache: meta.ignoreCache,
     isHome: false // 执行转换的路由不是Home页
   }
 }
@@ -36,7 +34,7 @@ export interface TabState {
   tagList: TagProps[]
   cacheTabList: Set<string>
 }
-const tabStore = defineStore('app', {
+const tabStore = defineStore('tab', {
   state: (): TabState => ({
     cacheTabList: new Set([DEFAULT_ROUTE_NAME]),
     tagList: [DEFAULT_ROUTE]
@@ -49,7 +47,18 @@ const tabStore = defineStore('app', {
       return Array.from(this.cacheTabList)
     }
   },
-  actions: {}
+  actions: {
+    addTabList(route: RouteLocationNormalized) {
+      // 添加Tab可能添加缓存
+      this.tagList.push(routerToTag(route))
+      this.cacheTabList.add(route.name as string)
+    },
+    removeTabList(name: string, index: number) {
+      // 移除Tab
+      this.tagList.splice(index, 1)
+      this.cacheTabList.delete(name)
+    }
+  }
 })
 
 export default tabStore

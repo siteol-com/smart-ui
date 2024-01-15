@@ -8,7 +8,6 @@ declare module 'vue-router' {
     hideInMenu?: boolean // 不显示在菜单
     hideChildrenInMenu?: boolean // 隐藏子节点
     order?: number // 菜单排序
-    noAffix?: boolean // 不显示在顶部Tab中
-    ignoreCache?: boolean // 不进行路由缓存
+    noAffix?: boolean // 不显示在顶部Tab中（顶部Tab默认添加缓存）
   }
 }

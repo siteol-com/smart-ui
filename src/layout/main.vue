@@ -41,5 +41,3 @@ const logo: any = {
   collapsed: '/public/static/img/icon.png'
 }
 </script>
-
-<style scoped lang="less"></style>

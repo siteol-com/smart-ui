@@ -1,9 +1,9 @@
 <script lang="tsx">
-import { defineComponent, computed, ref, resolveComponent, h } from 'vue'
+import { onUnmounted, defineComponent, computed, ref, resolveComponent, h } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { appStore, userStore } from '@/store'
 import { useRouter, RouteRecordRaw } from 'vue-router'
-import { listenerRouteChange } from '@/utils/routeListener'
+import { listenerRouteChange, removeRouteListener } from '@/utils/routeListener'
 // 动态生成菜单
 export default defineComponent({
   setup() {
@@ -102,6 +102,10 @@ export default defineComponent({
         selectedKey.value = [menuOpenKeys[menuOpenKeys.length - 1]]
       }
     }, true)
+    // 注销监听
+    onUnmounted(() => {
+      removeRouteListener()
+    })
     return () => (
       <a-menu
         mode={'vertical'}

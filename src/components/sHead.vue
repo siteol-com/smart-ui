@@ -8,7 +8,9 @@
         </template>
       </a-button>
     </div>
-    <div class="head-center"></div>
+    <div class="head-center">
+      <STab />
+    </div>
     <div class="head-right">
       <SHeadBtns />
       <SHeadAvatar />
@@ -18,6 +20,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+import STab from './sTab.vue'
 import SHeadBtns from './sHeadBtns.vue'
 import SHeadAvatar from './sHeadAvatar.vue'
 import { appStore } from '@/store'
