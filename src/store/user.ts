@@ -4,8 +4,8 @@ import routers from '@/router/routers'
 import userMenuTree from '@/utils/hooks/menu'
 //import { logout as userLogout, getUserInfo } from '@/api/user'
 //import { authLogin, AuthLoginReq } from '@/api/open/auth'
-//import { setToken, clearToken } from '@/utils/auth'
-//import { removeRouteListener } from '@/utils/route-listener'
+import { setToken, clearToken } from '@/utils/hooks/token'
+import { removeRouteListener } from '@/utils/routeListener'
 
 interface UserState {
   name?: string
@@ -63,8 +63,8 @@ const userStore = defineStore('user', {
         // await userLogout()
       } finally {
         this.resetInfo()
-        //clearToken()
-        //removeRouteListener()
+        clearToken()
+        removeRouteListener()
       }
     }
   }

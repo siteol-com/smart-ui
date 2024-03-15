@@ -6,6 +6,7 @@
   }
   &::-webkit-scrollbar-thumb {
     background-color: var(--color-fill-3);
+    border-radius: 4px;
   }
   &::-webkit-scrollbar-track {
     background-color: transparent;
@@ -42,7 +43,7 @@ body {
     height: calc(100% - 50px);
     padding: 10px 0;
     overflow-y: auto;
-    :deep(.arco-menu) {
+    * {
       ::-webkit-scrollbar {
         width: 0;
         height: 0;
@@ -124,7 +125,7 @@ body {
           }
           .stabGo {
             opacity: 0;
-            transform: scale(0.5);
+            transform: scale(0.4);
           }
         }
         .stabx {
@@ -196,11 +197,73 @@ body {
     }
   }
 }
-.container {
-  padding: 16px 20px 0;
-  display: flex;
+.arco-layout-content {
+  height: calc(100vh - 50px);
+  .container {
+    margin: 5px 15px 15px;
+    height: calc(100% - 20px);
+    position: relative;
+    overflow: hidden;
+    .sGroup {
+      border-radius: 4px;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+      overflow-y: auto;
+    }
+    .sList {
+      z-index: 1;
+      left: 0;
+    }
+    .sItem {
+      position: absolute;
+      z-index: 0;
+      left: 30%;
+      opacity: 0;
+      top: 0;
+    }
+    &.sPop {
+      .sList {
+        left: -30%;
+        opacity: 0;
+        z-index: 0;
+      }
+      .sItem {
+        left: 0;
+        opacity: 1;
+        .arco-page-header {
+          position: sticky;
+          width: 100%;
+          top: 0;
+          border-bottom: 1px solid var(--color-neutral-3);
+          margin-bottom: 10px;
+          background: var(--color-bg-2);
+          z-index: 100;
+          padding: 16px 0;
+        }
+      }
+    }
+  }
 }
-
+.doBtn {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.formSpan {
+  padding: 5px 12px;
+  line-height: 20px;
+  border: 1px solid var(--color-fill-3);
+  color: var(--color-text-1);
+  border-radius: 2px;
+  width: 100%;
+  min-height: 32px;
+}
+/* 覆写 */
+.arco-spin {
+  width: 100%;
+}
 /* 顶部进度条 */
 #nprogress .bar {
   background: rgb(var(--primary-6)) !important;
@@ -211,7 +274,19 @@ body {
     0 0 10px #9fd4fd,
     0 0 5px rgb(var(--primary-6)) !important;
 }
-
+/* fade-transform vue3 */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.3s;
+}
+.fade-transform-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(-15px);
+}
 /* 布灵闪的动画效果 */
 @keyframes bili {
   25% {

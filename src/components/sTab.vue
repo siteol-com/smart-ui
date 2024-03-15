@@ -11,7 +11,6 @@ const tab = tabStore()
 const tagList = computed(() => {
   return tab.getTabList
 })
-console.log(tagList.value)
 // 路由切换
 listenerRouteChange((route) => {
   if (!route.meta.noAffix && tagList.value && !tagList.value.some((tag) => tag.name === route.name)) {
