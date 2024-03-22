@@ -59,3 +59,7 @@ export function dictSort(req: any) {
 export function dictDel(req: any) {
   return axios.post('/plat/dict/del', { id: req })
 }
+
+export function dictRead(req: any) {
+  return axios.post('/plat/dict/read', req)
+}

@@ -16,6 +16,7 @@ export default {
   'button.delete': '删除',
   'button.search': '搜索',
   'button.reset': '重置',
+  'button.sync': '刷新',
   'button.submit': '提交',
   'button.cancel': '取消',
   'menu.Center': '主页',
@@ -28,6 +29,7 @@ export default {
   'menu.PlatRouter': '路由',
   'menu.PlatResponse': '响应',
   'menu.PlatDict': '字典',
+  'menu.PlatConfig': '配置',
   'rule.required': '字段为必填',
   'rule.select': '请选择',
   'title.lock': '锁定确认'

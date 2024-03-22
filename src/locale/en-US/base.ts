@@ -16,6 +16,7 @@ export default {
   'button.delete': 'Delete',
   'button.search': 'Search',
   'button.reset': 'Reset',
+  'button.sync': 'Sync',
   'button.submit': 'Submit',
   'button.cancel': 'Cancel',
   'menu.Center': 'Center',
@@ -28,6 +29,7 @@ export default {
   'menu.PlatRouter': 'Router',
   'menu.PlatResponse': 'Response',
   'menu.PlatDict': 'Dict',
+  'menu.PlatConfig': 'Config',
   'rule.required': 'Field is required',
   'rule.select': 'Please choose',
   'title.lock': 'Lock confirmation'

@@ -17,5 +17,22 @@ export default {
   'dict.choose': '允许选择',
   'dict.choose.tips': '是否可在下拉框中选择，关闭表示仅作为系统翻译',
   'dict.sort': '分组排序',
-  'dict.del.tip': '锁定后在字典不可见，但分组下该字典值依旧被占用不可复用！是否确认锁定？'
+  'dict.del.tip': '锁定后在字典不可见，但分组下该字典值依旧被占用不可复用！是否确认锁定？',
+  'sysConfig.system': '系统配置',
+  'sysConfig.get': '查看配置',
+  'sysConfig.edit': '编辑配置',
+  'sysConfig.loginSwitch': '多端登陆限制',
+  'sysConfig.loginSwitch.tips': '用于限制同时登陆的终端数量，新登陆将踢出超出限制的历史登陆',
+  'sysConfig.loginNum': '限制数量',
+  'sysConfig.loginFailSwitch': '登陆尝试限制',
+  'sysConfig.loginFailSwitch.tips': '用于限制指定周期内登陆失败的上限，超出时账号将被锁定,如：30分钟内失败尝试5次锁定3天',
+  'sysConfig.loginFailNum': '统计周期数量',
+  'sysConfig.loginFailUnit': '统计时间单位',
+  'sysConfig.loginFailLockNum': '锁定单位数量',
+  'sysConfig.loginFailLockUnit': '锁定时间单位',
+  'sysConfig.loginFailTryNum': '失败上限数量',
+  'sysConfig.logoutSwitch': '登陆超时限制',
+  'sysConfig.logoutSwitch.tips': '用于限制无操作情况下登陆自动超时退出',
+  'sysConfig.logoutNum': '超时周期数量',
+  'sysConfig.logoutUnit': '超时时间单位'
 }

@@ -3,7 +3,7 @@
     <a-row :gutter="20">
       <a-col :span="8">
         <a-form-item field="groupKey" :label="$t('dict.groupKey')">
-          <a-select v-model="query.groupKey" :options="pop.dictList" allow-clear allow-search :placeholder="$t('button.all')" />
+          <a-select v-model="query.groupKey" :options="dictList" allow-clear allow-search :placeholder="$t('button.all')" />
         </a-form-item>
       </a-col>
       <a-col :span="8">
@@ -174,12 +174,17 @@ async function pageQuery() {
 }
 // 初始化分页
 setQuery(pageQuery)
+// 初始化字典对象
+const dictList = ref([])
+const dictMap = ref({})
 // 查询字典列表
 async function getDictGroup() {
   // 指定字典Key
   await dictGroupRead().then((r) => {
-    props.pop.dictList = r.data.list
-    props.pop.dictMap = r.data.map
+    dictList.value = r.data.list
+    dictMap.value = r.data.map
+    props.pop.dictList = dictList
+    props.pop.dictMap = dictMap
   })
 }
 function init() {
@@ -195,7 +200,7 @@ function resetQuery() {
   // 重置分页
   resetPage()
   // 重置查詢
-  init()
+  pageQuery()
 }
 // 排序对象
 const sortList = ref([])
@@ -274,7 +279,7 @@ onMounted(() => {
 // 语言监听
 watch(currentLocale, (n, o) => {
   if (n !== o) {
-    init()
+    getDictGroup()
   }
 })
 </script>
