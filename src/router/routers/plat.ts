@@ -51,7 +51,7 @@ const PLAT: RouteRecordRaw = {
       meta: { locale: 'menu.PlatDict', requiresAuth: false }
     },
     {
-      path: 'config', // 数据字典
+      path: 'config', // 系統配置
       name: 'PlatConfig',
       component: () => import('@/views/plat/sysConfig/index.vue'),
       meta: { locale: 'menu.PlatConfig', requiresAuth: false }

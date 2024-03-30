@@ -1,11 +1,11 @@
 <template>
   <div class="stab" :class="{ stabCheck: routeCheck, stabMounted: mounteDone }" @click="go()">
     <div class="stabi" :class="{ stabinit: initDone }">
-      <icon-loading class="stabLoad" :size="16" />
-      <icon-dashboard v-if="item.isHome" class="stabGo" :size="16" />
+      <icon-loading class="stabLoad" :size="18" />
+      <icon-dashboard v-if="item.isHome" class="stabGo" :size="18" />
       <span class="stabGo" v-else>
-        <icon-compass v-if="routeCheck" :size="16" />
-        <icon-pause-circle v-else :size="16" />
+        <icon-compass v-if="routeCheck" :size="18" />
+        <icon-pause-circle v-else :size="18" />
       </span>
     </div>
     <div class="stabp">

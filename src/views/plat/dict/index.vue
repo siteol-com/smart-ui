@@ -14,11 +14,12 @@
 
 <script lang="ts" setup>
 import { onUnmounted } from 'vue'
-import pop from '@/utils/hooks/pop'
+import usePop from '@/utils/hooks/pop'
 import Page from './page.vue'
 import Add from './add.vue'
 import Get from './get.vue'
 import Edit from './edit.vue'
+const pop = usePop()
 onUnmounted(() => {
   pop.close()
 })
