@@ -32,5 +32,6 @@ export default {
   'menu.PlatConfig': '配置',
   'rule.required': '字段为必填',
   'rule.select': '请选择',
-  'title.lock': '锁定确认'
+  'title.lock': '锁定确认',
+  'title.delete': '删除确认'
 }
