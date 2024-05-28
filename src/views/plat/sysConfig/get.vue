@@ -98,7 +98,7 @@
               <a-button
                 type="primary"
                 :loading="load"
-                @click="props.pop.open('edit', 1, $t('sysConfig.edit'), $t('sysConfig.system'), {}, get)">
+                @click="pop.open('edit', 1, $t('sysConfig.edit'), $t('sysConfig.system'), {}, get)">
                 <template #icon>
                   <icon-edit />
                 </template>

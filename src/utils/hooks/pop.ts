@@ -14,7 +14,9 @@ export interface Pop {
   dictMap: any
   open: Function
   close: Function
+  treeClose: Function
   callBack: Function
+  treeRefresh: Function
 }
 
 export default function usePop() {
@@ -42,19 +44,21 @@ export default function usePop() {
     },
     // 关闭弹层
     close: () => {
+      pop.itemId = 0
+      pop.treeClose()
+    },
+    // 树形返回不修改选中的号
+    treeClose() {
       pop.pop = false
       pop.add = false
       pop.edit = false
       pop.get = false
-      pop.itemId = 0
       pop.header = ''
       pop.subHeader = ''
       pop.useObj = {}
-      // pop.dictList = []
-      // pop.dictMap = {}
-      // pop.callBack = () => {}
     },
-    callBack: () => {}
+    callBack: () => {},
+    treeRefresh: () => {}
   })
   return pop
 }

@@ -21,19 +21,7 @@
             :placeholder="$t('button.all')" />
         </a-form-item>
       </a-col>
-      <a-col :span="12">
-        <a-space>
-          <a-tooltip :content="$t('button.add')" :mini="true">
-            <a-button type="primary" status="danger" @click="pop.open('add', 0, $t('router.add'), $t('router.add.sub'), {}, search)">
-              <template #icon>
-                <icon-plus />
-              </template>
-            </a-button>
-          </a-tooltip>
-          <!-- <a-divider direction="vertical" /> -->
-        </a-space>
-      </a-col>
-      <a-col :span="12" class="doBtn">
+      <a-col :span="24" class="doBtn">
         <a-space>
           <a-tooltip :content="$t('button.search')" :mini="true">
             <a-button type="primary" @click="search">
@@ -56,6 +44,7 @@
   <a-divider />
   <!--表格，吸顶和滚动条不可同时使用 -->
   <a-table
+    v-model:selectedKeys="selectedKeys"
     :bordered="false"
     :scrollbar="false"
     :sticky-header="true"
@@ -64,64 +53,35 @@
     :pagination="page"
     :columns="columns"
     :data="list"
-    @page-change="changePage">
+    :row-selection="{ type: 'checkbox' }"
+    style="height: 410px"
+    @page-change="changePage"
+    @select="selectKeys">
     <template #serviceCode="{ record }">
       {{ dictMap.serviceCode[record.serviceCode] }}
     </template>
-    <template #type="{ record }">
-      <a-tag :color="flagTag[record.type]">{{ record.type == '1' ? 'Y' : 'N' }}</a-tag>
-    </template>
-    <template #logInDb="{ record }">
-      <a-tag :color="flagTag[record.logInDb]">{{ record.logInDb == '0' ? 'Y' : 'N' }}</a-tag>
-    </template>
-    <template #reqLogPrint="{ record }">
-      <a-tag :color="flagTag[record.reqLogPrint]">{{ record.reqLogPrint == '0' ? 'Y' : 'N' }}</a-tag>
-    </template>
-    <template #resLogPrint="{ record }">
-      <a-tag :color="flagTag[record.resLogPrint]">{{ record.resLogPrint == '0' ? 'Y' : 'N' }}</a-tag>
-    </template>
-    <template #operations="{ record }">
-      <a-space>
-        <a-tooltip :content="$t('button.get')" :mini="true">
-          <a-button type="text" size="small" @click="pop.open('get', record.id, $t('router.get'), record.code, {}, search)">
-            <template #icon> <icon-eye /> </template>
-          </a-button>
-        </a-tooltip>
-        <a-tooltip :content="$t('button.edit')" :mini="true">
-          <a-button type="text" size="small" @click="pop.open('edit', record.id, $t('router.edit'), record.code, {}, search)">
-            <template #icon> <icon-edit /> </template>
-          </a-button>
-        </a-tooltip>
-        <a-tooltip :content="$t('button.delete')" :mini="true">
-          <a-button type="text" size="small" :disabled="record.mark === '1'" @click="openDelete(record)">
-            <template #icon> <icon-delete /> </template>
-          </a-button>
-        </a-tooltip>
-      </a-space>
-    </template>
   </a-table>
-  <!-- 刪除确认-->
-  <a-modal v-model:visible="delItem.delConfirm" :width="400" :title="$t('title.delete')" @before-ok="deleting">
-    <div>{{ $t('router.del.tip') }}</div>
-  </a-modal>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { Pop } from '@/utils/hooks/pop'
 import useLocale from '@/utils/hooks/locale'
 import useLoad from '@/utils/hooks/load'
 import usePage from '@/utils/hooks/page'
 import { dictRead } from '@/api/plat/dict'
-import { routerPage, routerDel } from '@/api/plat/router'
+import { routerPage } from '@/api/plat/router'
 // 入参读取
 const props = defineProps({
-  pop: {
+  doSelect: {
+    type: Function,
+    required: true
+  },
+  data: {
     type: Object,
     required: true,
     default: () => {
-      return {} as Pop
+      return {}
     }
   }
 })
@@ -134,22 +94,16 @@ const { t } = useI18n()
 const { page, setQuery, search, changePage, resetPage } = usePage()
 // 初始化查询对象
 const initQuery = () => {
-  return { name: '', url: '', serviceCode: '', type: '' }
+  return { name: '', url: '', serviceCode: '', type: '0' }
 }
 // 查询对象
 const query = ref(initQuery())
-// 状态标签
-const flagTag: any = { '0': 'green', '1': 'orange', '2': 'red' }
 // 表格表头和数据指定
 const columns = computed(() => [
   { title: t('plat.serviceCode'), dataIndex: 'serviceCode', slotName: 'serviceCode', width: 150 },
   { title: t('router.name'), dataIndex: 'name', width: 150 },
   { title: t('router.type'), dataIndex: 'type', slotName: 'type', width: 150 },
-  { title: t('router.url'), dataIndex: 'url', ellipsis: true, tooltip: true },
-  { title: t('router.logInDb'), dataIndex: 'logInDb', slotName: 'logInDb' },
-  { title: t('router.reqLogPrint'), dataIndex: 'reqLogPrint', slotName: 'reqLogPrint' },
-  { title: t('router.resLogPrint'), dataIndex: 'resLogPrint', slotName: 'resLogPrint' },
-  { title: t('base.oper'), slotName: 'operations', width: 125 }
+  { title: t('router.url'), dataIndex: 'url', ellipsis: true, tooltip: true }
 ])
 // 列表对象
 const list = ref([])
@@ -173,18 +127,42 @@ async function pageQuery() {
 // 初始化分页
 setQuery(pageQuery)
 // 初始化字典对象
-const dictList = ref({ serviceCode: [] })
-const dictMap = ref({ serviceCode: {} as any })
+const dictList = ref({ serviceCode: [], routerType: [] })
+const dictMap = ref({ serviceCode: {} as any, routerType: {} as any })
 // 字段初始化
 async function dictInit() {
   // 指定字典Key
-  await dictRead({ groupKeys: ['serviceCode'] }).then((r) => {
+  await dictRead({ groupKeys: ['serviceCode', 'routerType'] }).then((r) => {
     dictList.value = r.data.list
     dictMap.value = r.data.map
-    props.pop.dictList = dictList
-    props.pop.dictMap = dictMap
   })
 }
+// 选择对象
+const selectedKeys = ref<any>([])
+const selectedItems = ref<any>([])
+// 去掉响应式
+const { data } = props
+console.log(JSON.stringify(data))
+// 初始化赋值
+selectedItems.value = data.selectedItems
+selectedKeys.value = data.selectedKeys
+// 选择事件
+function selectKeys(keys: (string | number)[], thisKey: string | number, item: any) {
+  if (keys.includes(thisKey)) {
+    selectedItems.value.push(item)
+  } else {
+    selectedItems.value = selectedItems.value.filter((i: any) => {
+      return i.id !== thisKey
+    })
+  }
+  // // 传值给父级
+  // const cacheKeys: any[] = []
+  // selectedItems.value.forEach((i: any) => {
+  //   cacheKeys.push(i.id)
+  // })
+  props.doSelect(selectedItems.value, keys)
+}
+
 function init() {
   // 初始化后端字典对象
   dictInit()
@@ -199,27 +177,6 @@ function resetQuery() {
   resetPage()
   // 重置查詢
   pageQuery()
-}
-// 删除对象
-const delItem = reactive({
-  delConfirm: false,
-  delId: 0
-})
-// 打开删除
-function openDelete(item: any) {
-  delItem.delId = item.id
-  delItem.delConfirm = true
-}
-// 确认删除
-async function deleting() {
-  try {
-    await routerDel(delItem.delId)
-  } catch (err) {
-    return false
-  } finally {
-    // Nothing
-    pageQuery()
-  }
 }
 // 页面渲染
 onMounted(() => {

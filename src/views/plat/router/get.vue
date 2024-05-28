@@ -1,10 +1,20 @@
 <template>
   <a-spin :loading="load">
     <a-form label-align="left" class="form" layout="vertical" :model="formData">
-      <a-row :gutter="20">
+      <a-row :gutter="24">
         <a-col :span="12">
           <a-form-item field="type" :label="$t('router.type')">
-            <span class="formSpan">{{ pop.dictMap.routerType[formData.type] }}</span>
+            <template #extra>
+              <div>{{ $t('router.type.tips') }}</div>
+            </template>
+            <a-switch v-model="formData.type" :checked-value="'1'" :unchecked-value="'0'" disabled>
+              <template #checked-icon>
+                <icon-check />
+              </template>
+              <template #unchecked-icon>
+                <icon-close />
+              </template>
+            </a-switch>
           </a-form-item>
         </a-col>
         <a-col :span="12">
@@ -22,22 +32,7 @@
             <span class="formSpan">{{ pop.dictMap.serviceCode[formData.serviceCode] }}</span>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
-          <a-form-item field="reqLogInDb" :label="$t('router.reqLogInDb')">
-            <template #extra>
-              <div>{{ $t('router.reqLogInDb.tips') }}</div>
-            </template>
-            <a-switch v-model="formData.reqLogInDb" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
-          </a-form-item>
-        </a-col>
-        <a-col :span="12">
+        <a-col :span="24">
           <a-form-item field="reqLogPrint" :label="$t('router.reqLogPrint')">
             <template #extra>
               <div>{{ $t('router.reqLogPrint.tips') }}</div>
@@ -60,22 +55,7 @@
             <span class="formSpan">{{ formData.reqLogSecure }}</span>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
-          <a-form-item field="resLogInDb" :label="$t('router.resLogInDb')">
-            <template #extra>
-              <div>{{ $t('router.resLogInDb.tips') }}</div>
-            </template>
-            <a-switch v-model="formData.resLogInDb" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
-          </a-form-item>
-        </a-col>
-        <a-col :span="12">
+        <a-col :span="24">
           <a-form-item field="resLogPrint" :label="$t('router.resLogPrint')">
             <template #extra>
               <div>{{ $t('router.resLogPrint.tips') }}</div>
@@ -99,7 +79,22 @@
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item field="name" :label="$t('router.remark')">
+          <a-form-item field="logInDb" :label="$t('router.logInDb')">
+            <template #extra>
+              <div>{{ $t('router.logInDb.tips') }}</div>
+            </template>
+            <a-switch v-model="formData.logInDb" :checked-value="'0'" :unchecked-value="'1'" disabled>
+              <template #checked-icon>
+                <icon-check />
+              </template>
+              <template #unchecked-icon>
+                <icon-close />
+              </template>
+            </a-switch>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item field="remark" :label="$t('router.remark')">
             <span class="formSpan">{{ formData.remark }}</span>
           </a-form-item>
         </a-col>

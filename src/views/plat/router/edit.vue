@@ -1,9 +1,19 @@
 <template>
   <a-form label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
     <a-row :gutter="20">
-      <a-col :span="12">
+      <a-col :span="24">
         <a-form-item field="type" :label="$t('router.type')">
-          <span class="formSpan">{{ pop.dictMap.routerType[formData.type] }}</span>
+          <template #extra>
+            <div>{{ $t('router.type.tips') }}</div>
+          </template>
+          <a-switch v-model="formData.type" :checked-value="'1'" :unchecked-value="'0'" disabled>
+            <template #checked-icon>
+              <icon-check />
+            </template>
+            <template #unchecked-icon>
+              <icon-close />
+            </template>
+          </a-switch>
         </a-form-item>
       </a-col>
       <a-col :span="12">
@@ -26,7 +36,7 @@
             :placeholder="$t('rule.select')" />
         </a-form-item>
       </a-col>
-      <a-col :span="12">
+      <a-col :span="24">
         <a-form-item field="reqLogPrint" :label="$t('router.reqLogPrint')">
           <template #extra>
             <div>{{ $t('router.reqLogPrint.tips') }}</div>
@@ -55,7 +65,7 @@
             :placeholder="$t('router.reqLogSecure.place')" />
         </a-form-item>
       </a-col>
-      <a-col :span="12">
+      <a-col :span="24">
         <a-form-item field="resLogPrint" :label="$t('router.resLogPrint')">
           <template #extra>
             <div>{{ $t('router.resLogPrint.tips') }}</div>
@@ -121,7 +131,7 @@
               {{ $t('button.submit') }}
             </a-button>
             <a-divider direction="vertical" />
-            <a-button @click="props.pop.close()">
+            <a-button @click="pop.close()">
               <template #icon>
                 <icon-close />
               </template>

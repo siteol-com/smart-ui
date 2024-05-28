@@ -58,7 +58,7 @@
               {{ $t('button.submit') }}
             </a-button>
             <a-divider direction="vertical" />
-            <a-button @click="props.pop.close()">
+            <a-button @click="pop.close()">
               <template #icon>
                 <icon-close />
               </template>

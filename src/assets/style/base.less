@@ -204,25 +204,6 @@ body {
     height: calc(100% - 20px);
     position: relative;
     overflow: hidden;
-    .sGroup {
-      border-radius: 4px;
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transition: all 0.3s ease-in-out;
-      overflow-y: auto;
-    }
-    .sList {
-      z-index: 1;
-      left: 0;
-    }
-    .sItem {
-      position: absolute;
-      z-index: 0;
-      left: 30%;
-      opacity: 0;
-      top: 0;
-    }
     &.sPop {
       .sList {
         left: -30%;
@@ -233,7 +214,76 @@ body {
         left: 0;
         opacity: 1;
       }
+      .treeL {
+        &::after {
+          opacity: 0.7;
+          z-index: 1;
+        }
+      }
     }
+  }
+  .emtip {
+    text-align: center;
+  }
+  .treeE {
+    display: flex;
+    .treeL {
+      width: 240px;
+      height: 100%;
+      margin-right: 10px;
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: var(--color-bg-2);
+        opacity: 0;
+        z-index: -1;
+        transition: all 0.3s ease-in-out;
+      }
+      .treeLe {
+        height: calc(100% - 50px);
+        overflow-y: auto;
+      }
+    }
+    .treeR {
+      width: calc(100% - 250px);
+      overflow: hidden;
+      position: relative;
+      .treeBtn {
+        position: sticky;
+        margin: 15px 0 20px 0;
+        top: 15px;
+        right: 0;
+        z-index: 101;
+      }
+    }
+  }
+  .sBg {
+    background: var(--color-bg-2);
+    padding: 16px 16px;
+  }
+  .sGroup {
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+  }
+  .sList {
+    z-index: 1;
+    left: 0;
+  }
+  .sItem {
+    position: absolute;
+    z-index: 0;
+    left: 30%;
+    opacity: 0;
+    top: 0;
   }
 }
 .doBtn {

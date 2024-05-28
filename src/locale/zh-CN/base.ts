@@ -9,6 +9,7 @@ export default {
   'button.ok': '确认',
   'button.all': '全部',
   'button.add': '新建',
+  'button.add.sub': '新建子集',
   'button.get': '查询',
   'button.edit': '编辑',
   'button.sort': '排序',
