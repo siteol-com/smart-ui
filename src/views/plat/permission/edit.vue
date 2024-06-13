@@ -22,7 +22,7 @@
           <template #extra>
             <div>{{ $t('permission.static.tips') }}</div>
           </template>
-          <a-switch v-model="formData.static" :checked-value="'0'" :unchecked-value="'1'">
+          <a-switch v-model="formData.static" :checked-value="'0'" :unchecked-value="'1'" disabled>
             <template #checked-icon>
               <icon-check />
             </template>
