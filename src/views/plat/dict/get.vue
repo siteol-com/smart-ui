@@ -4,12 +4,25 @@
       <a-row :gutter="20">
         <a-col :span="12">
           <a-form-item field="groupKey" :label="$t('dict.groupKey')">
-            <span class="formSpan">{{ pop.dictMap[formData.groupKey] }}</span>
+            <span class="formSpan">{{ pop.dictMap.groupKey[formData.groupKey] }}</span>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item field="choose" :label="$t('dict.choose')">
+            <template #extra>
+              <div>{{ $t('dict.choose.tips') }}</div>
+            </template>
+            <span class="formSpan">{{ pop.dictMap.openStatus[formData.choose] }}</span>
           </a-form-item>
         </a-col>
         <a-col :span="12">
           <a-form-item field="val" :label="$t('dict.val')">
             <span class="formSpan">{{ formData.val }}</span>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item field="remark" :label="$t('dict.remark')">
+            <span class="formSpan">{{ formData.remark }}</span>
           </a-form-item>
         </a-col>
         <a-col :span="12">
@@ -20,26 +33,6 @@
         <a-col :span="12">
           <a-form-item field="labelEn" :label="$t('dict.labelEn')">
             <span class="formSpan">{{ formData.labelEn }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
-          <a-form-item field="remark" :label="$t('dict.remark')">
-            <span class="formSpan">{{ formData.remark }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="12">
-          <a-form-item field="choose" :label="$t('dict.choose')">
-            <template #extra>
-              <div>{{ $t('dict.choose.tips') }}</div>
-            </template>
-            <a-switch v-model="formData.choose" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
           </a-form-item>
         </a-col>
       </a-row>

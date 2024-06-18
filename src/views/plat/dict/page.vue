@@ -2,10 +2,25 @@
   <a-form :model="query" label-align="left" layout="vertical">
     <a-row :gutter="20">
       <a-col :span="24">
-        <a-row :gutter="0">
+        <a-row :gutter="20">
           <a-col :span="8">
             <a-form-item field="groupKey" :label="$t('dict.groupKey')">
-              <a-select v-model="query.groupKey" :options="dictList" allow-clear allow-search :placeholder="$t('button.all')" />
+              <a-select
+                v-model="query.groupKey"
+                :options="dictList.groupKey"
+                allow-clear
+                allow-search
+                :placeholder="$t('button.all')" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-item field="choose" :label="$t('dict.choose')">
+              <a-select
+                v-model="query.choose"
+                :options="dictList.openStatus"
+                allow-clear
+                allow-search
+                :placeholder="$t('button.all')" />
             </a-form-item>
           </a-col>
         </a-row>
@@ -55,10 +70,10 @@
     :data="list"
     @page-change="changePage">
     <template #groupKey="{ record }">
-      {{ dictMap[record.groupKey] }}
+      {{ dictMap.groupKey[record.groupKey] }}
     </template>
     <template #choose="{ record }">
-      <a-tag :color="chooseTag[record.choose]">{{ record.choose == '0' ? 'Y' : 'N' }}</a-tag>
+      <a-tag :color="chooseTag[record.choose]">{{ dictMap.openStatus[record.choose] }}</a-tag>
     </template>
     <template #operations="{ record }">
       <a-space>
@@ -106,12 +121,11 @@
 <script lang="ts" setup>
 import { ref, reactive, onMounted, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { dictGroupRead } from '@/api/plat/dictGroup'
 import type { Pop } from '@/utils/hooks/pop'
 import useLocale from '@/utils/hooks/locale'
 import useLoad from '@/utils/hooks/load'
 import usePage from '@/utils/hooks/page'
-import { dictPage, dictBro, dictSort, dictDel } from '@/api/plat/dict'
+import { dictPage, dictBro, dictSort, dictDel, dictRead } from '@/api/plat/dict'
 // 入参读取
 const props = defineProps({
   pop: {
@@ -131,7 +145,7 @@ const { t } = useI18n()
 const { page, setQuery, search, changePage, resetPage } = usePage()
 // 初始化查询对象
 const initQuery = () => {
-  return { groupKey: '' }
+  return { groupKey: '', choose: '' }
 }
 // 状态标签
 const chooseTag: any = { '0': 'green', '1': 'orange', '2': 'red' }
@@ -144,7 +158,6 @@ const columns = computed(() => [
   { title: t('dict.label'), dataIndex: 'label', width: 150, ellipsis: true, tooltip: true },
   { title: t('dict.labelEn'), dataIndex: 'labelEn', width: 150, ellipsis: true, tooltip: true },
   { title: t('dict.choose'), dataIndex: 'choose', slotName: 'choose' },
-  { title: t('dict.sort'), dataIndex: 'sort' },
   { title: t('dict.remark'), dataIndex: 'remark', ellipsis: true, tooltip: true },
   { title: t('base.oper'), slotName: 'operations', width: 165 }
 ])
@@ -169,13 +182,16 @@ async function pageQuery() {
 }
 // 初始化分页
 setQuery(pageQuery)
+
 // 初始化字典对象
-const dictList = ref([])
-const dictMap: any = ref({})
-// 查询字典列表
-async function getDictGroup() {
+const dictList = ref({ groupKey: [], openStatus: [] })
+const dictMap = ref({ groupKey: {} as any, openStatus: {} as any })
+// 临时对象处理
+
+// 字段初始化
+async function dictInit() {
   // 指定字典Key
-  await dictGroupRead().then((r) => {
+  await dictRead({ groupKeys: ['groupKey', 'openStatus'] }).then((r) => {
     dictList.value = r.data.list
     dictMap.value = r.data.map
     props.pop.dictList = dictList
@@ -183,8 +199,8 @@ async function getDictGroup() {
   })
 }
 function init() {
-  // 初始化后端字典对象
-  getDictGroup()
+  // 字典初始化
+  dictInit()
   // 初始化搜索
   pageQuery()
 }

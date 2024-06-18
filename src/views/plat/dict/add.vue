@@ -5,11 +5,19 @@
         <a-form-item field="groupKey" :label="$t('dict.groupKey')" :rules="[{ required: true, message: $t('rule.required') }]">
           <a-select
             v-model="formData.groupKey"
-            :options="pop.dictList"
+            :options="pop.dictList.groupKey"
             allow-clear
             allow-search
             @change="groupKeyChange"
             :placeholder="$t('rule.select')" />
+        </a-form-item>
+      </a-col>
+      <a-col :span="12">
+        <a-form-item field="choose" :label="$t('dict.choose')">
+          <template #extra>
+            <div>{{ $t('dict.choose.tips') }}</div>
+          </template>
+          <a-select v-model="formData.choose" :options="pop.dictList.openStatus" :placeholder="$t('rule.select')" />
         </a-form-item>
       </a-col>
       <a-col :span="12">
@@ -21,16 +29,6 @@
         </a-form-item>
       </a-col>
       <a-col :span="12">
-        <a-form-item field="label" :label="$t('dict.label')" :rules="[{ required: true, message: $t('rule.required') }]">
-          <a-input v-model="formData.label" :max-length="64" allow-clear show-word-limit :placeholder="$t('dict.label.place')" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="12">
-        <a-form-item field="labelEn" :label="$t('dict.labelEn')" :rules="[{ required: true, message: $t('rule.required') }]">
-          <a-input v-model="formData.labelEn" :max-length="64" allow-clear show-word-limit :placeholder="$t('dict.labelEn.place')" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="24">
         <a-form-item field="remark" :label="$t('dict.remark')">
           <a-textarea
             v-model="formData.remark"
@@ -42,18 +40,13 @@
         </a-form-item>
       </a-col>
       <a-col :span="12">
-        <a-form-item field="choose" :label="$t('dict.choose')">
-          <template #extra>
-            <div>{{ $t('dict.choose.tips') }}</div>
-          </template>
-          <a-switch v-model="formData.choose" :checked-value="'0'" :unchecked-value="'1'">
-            <template #checked-icon>
-              <icon-check />
-            </template>
-            <template #unchecked-icon>
-              <icon-close />
-            </template>
-          </a-switch>
+        <a-form-item field="label" :label="$t('dict.label')" :rules="[{ required: true, message: $t('rule.required') }]">
+          <a-input v-model="formData.label" :max-length="64" allow-clear show-word-limit :placeholder="$t('dict.label.place')" />
+        </a-form-item>
+      </a-col>
+      <a-col :span="12">
+        <a-form-item field="labelEn" :label="$t('dict.labelEn')" :rules="[{ required: true, message: $t('rule.required') }]">
+          <a-input v-model="formData.labelEn" :max-length="64" allow-clear show-word-limit :placeholder="$t('dict.labelEn.place')" />
         </a-form-item>
       </a-col>
       <a-col :span="24">
