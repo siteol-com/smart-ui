@@ -9,6 +9,12 @@ const PLAT: RouteRecordRaw = {
   meta: { locale: 'menu.Plat', icon: 'icon-settings' }, // 国际化、图标、鉴权标识
   children: [
     {
+      path: 'account', // 登陆账号
+      name: 'PlatAccount',
+      component: () => import('@/views/plat/account/index.vue'),
+      meta: { locale: 'menu.PlatAccount', requiresAuth: false }
+    },
+    {
       path: 'dept', // 集团部门
       name: 'PlatDept',
       component: () => import('@/views/plat/dept/index.vue'),
@@ -19,12 +25,6 @@ const PLAT: RouteRecordRaw = {
       name: 'PlatRole',
       component: () => import('@/views/plat/role/index.vue'),
       meta: { locale: 'menu.PlatRole', requiresAuth: false }
-    },
-    {
-      path: 'account', // 登陆账号
-      name: 'PlatAccount',
-      component: () => import('@/views/plat/account/index.vue'),
-      meta: { locale: 'menu.PlatAccount', requiresAuth: false }
     },
     {
       path: 'permission', // 访问权限 ↓ 超管可见

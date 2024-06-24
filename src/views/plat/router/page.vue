@@ -69,16 +69,16 @@
       {{ dictMap.serviceCode[record.serviceCode] }}
     </template>
     <template #type="{ record }">
-      <a-tag :color="flagTag[record.type]">{{ record.type == '1' ? 'Y' : 'N' }}</a-tag>
+      <a-tag :color="flagTag[record.type]">{{ dictMap.routerType[record.type] }}</a-tag>
     </template>
     <template #logInDb="{ record }">
-      <a-tag :color="flagTag[record.logInDb]">{{ record.logInDb == '0' ? 'Y' : 'N' }}</a-tag>
+      <a-tag :color="flagTag[record.logInDb]">{{ dictMap.openStatus[record.logInDb] }}</a-tag>
     </template>
     <template #reqLogPrint="{ record }">
-      <a-tag :color="flagTag[record.reqLogPrint]">{{ record.reqLogPrint == '0' ? 'Y' : 'N' }}</a-tag>
+      <a-tag :color="flagTag[record.reqLogPrint]">{{ dictMap.openStatus[record.reqLogPrint] }}</a-tag>
     </template>
     <template #resLogPrint="{ record }">
-      <a-tag :color="flagTag[record.resLogPrint]">{{ record.resLogPrint == '0' ? 'Y' : 'N' }}</a-tag>
+      <a-tag :color="flagTag[record.resLogPrint]">{{ dictMap.openStatus[record.resLogPrint] }}</a-tag>
     </template>
     <template #operations="{ record }">
       <a-space>
@@ -173,12 +173,12 @@ async function pageQuery() {
 // 初始化分页
 setQuery(pageQuery)
 // 初始化字典对象
-const dictList = ref({ serviceCode: [] })
-const dictMap = ref({ serviceCode: {} as any })
+const dictList = ref({ serviceCode: [], routerType: [], openStatus: [] })
+const dictMap = ref({ serviceCode: {} as any, routerType: {} as any, openStatus: {} as any })
 // 字段初始化
 async function dictInit() {
   // 指定字典Key
-  await dictRead({ groupKeys: ['serviceCode'] }).then((r) => {
+  await dictRead({ groupKeys: ['serviceCode', 'routerType', 'openStatus'] }).then((r) => {
     dictList.value = r.data.list
     dictMap.value = r.data.map
     props.pop.dictList = dictList

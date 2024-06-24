@@ -1,19 +1,22 @@
 <template>
   <a-form label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
     <a-row :gutter="20">
-      <a-col :span="24">
+      <a-col :span="12">
         <a-form-item field="type" :label="$t('router.type')">
           <template #extra>
             <div>{{ $t('router.type.tips') }}</div>
           </template>
-          <a-switch v-model="formData.type" :checked-value="'1'" :unchecked-value="'0'">
-            <template #checked-icon>
-              <icon-check />
-            </template>
-            <template #unchecked-icon>
-              <icon-close />
-            </template>
-          </a-switch>
+          <a-select v-model="formData.type" :options="pop.dictList.routerType" :placeholder="$t('rule.select')" />
+        </a-form-item>
+      </a-col>
+      <a-col :span="12">
+        <a-form-item field="serviceCode" :label="$t('plat.serviceCode')" :rules="[{ required: true, message: $t('rule.required') }]">
+          <a-select
+            v-model="formData.serviceCode"
+            :options="pop.dictList.serviceCode"
+            allow-clear
+            allow-search
+            :placeholder="$t('rule.select')" />
         </a-form-item>
       </a-col>
       <a-col :span="12">
@@ -35,88 +38,61 @@
           <a-input v-model="formData.name" :max-length="32" allow-clear show-word-limit :placeholder="$t('router.name.place')" />
         </a-form-item>
       </a-col>
-      <a-col :span="12">
-        <a-form-item field="serviceCode" :label="$t('plat.serviceCode')" :rules="[{ required: true, message: $t('rule.required') }]">
-          <a-select
-            v-model="formData.serviceCode"
-            :options="pop.dictList.serviceCode"
-            allow-clear
-            allow-search
-            :placeholder="$t('rule.select')" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="24">
+      <a-col :span="8">
         <a-form-item field="reqLogPrint" :label="$t('router.reqLogPrint')">
           <template #extra>
             <div>{{ $t('router.reqLogPrint.tips') }}</div>
           </template>
-          <a-switch v-model="formData.reqLogPrint" :checked-value="'0'" :unchecked-value="'1'">
-            <template #checked-icon>
-              <icon-check />
-            </template>
-            <template #unchecked-icon>
-              <icon-close />
-            </template>
-          </a-switch>
+          <a-select v-model="formData.reqLogPrint" :options="pop.dictList.openStatus" :placeholder="$t('rule.select')" />
         </a-form-item>
       </a-col>
-      <a-col :span="24">
-        <a-form-item field="reqLogSecure" :label="$t('router.reqLogSecure')">
-          <template #extra>
-            <div>{{ $t('router.reqLogSecure.tips') }}</div>
-          </template>
-          <a-textarea
-            v-model="formData.reqLogSecure"
-            :max-length="256"
-            allow-clear
-            show-word-limit
-            auto-size
-            :placeholder="$t('router.reqLogSecure.place')" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="24">
+      <a-col :span="8">
         <a-form-item field="resLogPrint" :label="$t('router.resLogPrint')">
           <template #extra>
             <div>{{ $t('router.resLogPrint.tips') }}</div>
           </template>
-          <a-switch v-model="formData.resLogPrint" :checked-value="'0'" :unchecked-value="'1'">
-            <template #checked-icon>
-              <icon-check />
-            </template>
-            <template #unchecked-icon>
-              <icon-close />
-            </template>
-          </a-switch>
+          <a-select v-model="formData.resLogPrint" :options="pop.dictList.openStatus" :placeholder="$t('rule.select')" />
         </a-form-item>
       </a-col>
-      <a-col :span="24">
-        <a-form-item field="resLogSecure" :label="$t('router.resLogSecure')">
-          <template #extra>
-            <div>{{ $t('router.resLogSecure.tips') }}</div>
-          </template>
-          <a-textarea
-            v-model="formData.resLogSecure"
-            :max-length="256"
-            allow-clear
-            show-word-limit
-            auto-size
-            :placeholder="$t('router.resLogSecure.place')" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="24">
+      <a-col :span="8">
         <a-form-item field="logInDb" :label="$t('router.logInDb')">
           <template #extra>
             <div>{{ $t('router.logInDb.tips') }}</div>
           </template>
-          <a-switch v-model="formData.logInDb" :checked-value="'0'" :unchecked-value="'1'">
-            <template #checked-icon>
-              <icon-check />
-            </template>
-            <template #unchecked-icon>
-              <icon-close />
-            </template>
-          </a-switch>
+          <a-select v-model="formData.logInDb" :options="pop.dictList.openStatus" :placeholder="$t('rule.select')" />
         </a-form-item>
+      </a-col>
+      <a-col :span="24" class="formGroup">
+        <a-row :gutter="20">
+          <a-col :span="24">
+            <a-form-item field="reqLogSecure" :label="$t('router.reqLogSecure')">
+              <template #extra>
+                <div>{{ $t('router.reqLogSecure.tips') }}</div>
+              </template>
+              <a-textarea
+                v-model="formData.reqLogSecure"
+                :max-length="256"
+                allow-clear
+                show-word-limit
+                auto-size
+                :placeholder="$t('router.reqLogSecure.place')" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-item field="resLogSecure" :label="$t('router.resLogSecure')">
+              <template #extra>
+                <div>{{ $t('router.resLogSecure.tips') }}</div>
+              </template>
+              <a-textarea
+                v-model="formData.resLogSecure"
+                :max-length="256"
+                allow-clear
+                show-word-limit
+                auto-size
+                :placeholder="$t('router.resLogSecure.place')" />
+            </a-form-item>
+          </a-col>
+        </a-row>
       </a-col>
       <a-col :span="24">
         <a-form-item field="remark" :label="$t('router.remark')">

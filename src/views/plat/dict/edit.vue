@@ -3,7 +3,7 @@
     <a-row :gutter="20">
       <a-col :span="12">
         <a-form-item field="groupKey" :label="$t('dict.groupKey')">
-          <span class="formSpan">{{ pop.dictMap.groupKey[formData.groupKey] }}</span>
+          <span class="formSpan">{{ pop.dictMap.dictGroup[formData.groupKey] }}</span>
         </a-form-item>
       </a-col>
       <a-col :span="12">

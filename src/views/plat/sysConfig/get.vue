@@ -3,93 +3,92 @@
     <a-form label-align="left" class="form" layout="vertical" :model="formData">
       <a-row :gutter="20">
         <a-col :span="24">
-          <a-form-item field="loginSwitch" :label="$t('sysConfig.loginSwitch')">
-            <template #extra>
-              <div>{{ $t('sysConfig.loginSwitch.tips') }}</div>
-            </template>
-            <a-switch v-model="formData.loginSwitch" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
-          </a-form-item>
+          <a-row :gutter="20">
+            <a-col :span="12">
+              <a-form-item field="loginSwitch" :label="$t('sysConfig.loginSwitch')">
+                <template #extra>
+                  <div>{{ $t('sysConfig.loginSwitch.tips') }}</div>
+                </template>
+                <span class="formSpan">{{ dictMap.openStatus[formData.loginSwitch] }}</span>
+              </a-form-item>
+            </a-col>
+          </a-row>
         </a-col>
-        <a-col :span="12">
-          <a-form-item field="loginNum" :label="$t('sysConfig.loginNum')">
-            <span class="formSpan" :class="{ unSpan: formData.loginSwitch != '0' }">{{ formData.loginNum }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
-          <a-form-item field="loginFailSwitch" :label="$t('sysConfig.loginFailSwitch')">
-            <template #extra>
-              <div>{{ $t('sysConfig.loginFailSwitch.tips') }}</div>
-            </template>
-            <a-switch v-model="formData.loginFailSwitch" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
-          </a-form-item>
-        </a-col>
-        <a-col :span="12">
-          <a-form-item field="loginFailNum" :label="$t('sysConfig.loginFailNum')">
-            <span class="formSpan" :class="{ unSpan: formData.loginFailSwitch != '0' }">{{ formData.loginFailNum }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="12">
-          <a-form-item field="loginFailUnit" :label="$t('sysConfig.loginFailUnit')">
-            <span class="formSpan" :class="{ unSpan: formData.loginFailSwitch != '0' }">
-              {{ dictMap.timeUnit[formData.loginFailUnit] }}
-            </span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="12">
-          <a-form-item field="loginFailLockNum" :label="$t('sysConfig.loginFailLockNum')">
-            <span class="formSpan" :class="{ unSpan: formData.loginFailSwitch != '0' }">{{ formData.loginFailLockNum }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="12">
-          <a-form-item field="loginFailLockUnit" :label="$t('sysConfig.loginFailLockUnit')">
-            <span class="formSpan" :class="{ unSpan: formData.loginFailSwitch != '0' }">{{
-              dictMap.timeUnit[formData.loginFailLockUnit]
-            }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="12">
-          <a-form-item field="loginFailTryNum" :label="$t('sysConfig.loginFailTryNum')">
-            <span class="formSpan" :class="{ unSpan: formData.loginFailSwitch != '0' }">{{ formData.loginFailTryNum }}</span>
-          </a-form-item>
+        <a-col :span="24" class="formGroup" v-if="formData.loginSwitch == '0'">
+          <a-row :gutter="20">
+            <a-col :span="12">
+              <a-form-item field="loginNum" :label="$t('sysConfig.loginNum')">
+                <span class="formSpan">{{ formData.loginNum }}</span>
+              </a-form-item>
+            </a-col>
+          </a-row>
         </a-col>
         <a-col :span="24">
-          <a-form-item field="logoutSwitch" :label="$t('sysConfig.logoutSwitch')">
-            <template #extra>
-              <div>{{ $t('sysConfig.logoutSwitch.tips') }}</div>
-            </template>
-            <a-switch v-model="formData.logoutSwitch" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
-          </a-form-item>
+          <a-row :gutter="20">
+            <a-col :span="12">
+              <a-form-item field="loginFailSwitch" :label="$t('sysConfig.loginFailSwitch')">
+                <template #extra>
+                  <div>{{ $t('sysConfig.loginFailSwitch.tips') }}</div>
+                </template>
+                <span class="formSpan">{{ dictMap.openStatus[formData.loginFailSwitch] }}</span>
+              </a-form-item>
+            </a-col>
+          </a-row>
         </a-col>
-        <a-col :span="12">
-          <a-form-item field="logoutNum" :label="$t('sysConfig.logoutNum')">
-            <span class="formSpan" :class="{ unSpan: formData.logoutSwitch != '0' }">{{ formData.logoutNum }}</span>
-          </a-form-item>
+        <a-col :span="24" class="formGroup" v-if="formData.loginFailSwitch == '0'">
+          <a-row :gutter="20">
+            <a-col :span="12">
+              <a-form-item field="loginFailNum" :label="$t('sysConfig.loginFailNum')">
+                <span class="formSpan">{{ formData.loginFailNum }}</span>
+              </a-form-item>
+            </a-col>
+            <a-col :span="12">
+              <a-form-item field="loginFailUnit" :label="$t('sysConfig.loginFailUnit')">
+                <span class="formSpan"> {{ dictMap.timeUnit[formData.loginFailUnit] }} </span>
+              </a-form-item>
+            </a-col>
+            <a-col :span="12">
+              <a-form-item field="loginFailLockNum" :label="$t('sysConfig.loginFailLockNum')">
+                <span class="formSpan">{{ formData.loginFailLockNum }}</span>
+              </a-form-item>
+            </a-col>
+            <a-col :span="12">
+              <a-form-item field="loginFailLockUnit" :label="$t('sysConfig.loginFailLockUnit')">
+                <span class="formSpan">{{ dictMap.timeUnit[formData.loginFailLockUnit] }}</span>
+              </a-form-item>
+            </a-col>
+            <a-col :span="12">
+              <a-form-item field="loginFailTryNum" :label="$t('sysConfig.loginFailTryNum')">
+                <span class="formSpan">{{ formData.loginFailTryNum }}</span>
+              </a-form-item>
+            </a-col>
+          </a-row>
         </a-col>
-        <a-col :span="12">
-          <a-form-item field="logoutUnit" :label="$t('sysConfig.logoutUnit')">
-            <span class="formSpan" :class="{ unSpan: formData.logoutSwitch != '0' }"> {{ dictMap.timeUnit[formData.logoutUnit] }}</span>
-          </a-form-item>
+        <a-col :span="24">
+          <a-row :gutter="20">
+            <a-col :span="12">
+              <a-form-item field="logoutSwitch" :label="$t('sysConfig.logoutSwitch')">
+                <template #extra>
+                  <div>{{ $t('sysConfig.logoutSwitch.tips') }}</div>
+                </template>
+                <span class="formSpan">{{ dictMap.openStatus[formData.logoutSwitch] }}</span>
+              </a-form-item>
+            </a-col>
+          </a-row>
+        </a-col>
+        <a-col :span="24" class="formGroup" v-if="formData.logoutSwitch == '0'">
+          <a-row :gutter="20">
+            <a-col :span="12">
+              <a-form-item field="logoutNum" :label="$t('sysConfig.logoutNum')">
+                <span class="formSpan">{{ formData.logoutNum }}</span>
+              </a-form-item>
+            </a-col>
+            <a-col :span="12">
+              <a-form-item field="logoutUnit" :label="$t('sysConfig.logoutUnit')">
+                <span class="formSpan">{{ dictMap.timeUnit[formData.logoutUnit] }}</span>
+              </a-form-item>
+            </a-col>
+          </a-row>
         </a-col>
         <a-col :span="24">
           <a-divider />
@@ -155,12 +154,12 @@ async function get() {
   }
 }
 // 初始化字典对象
-const dictList = ref({ timeUnit: [] })
-const dictMap = ref({ timeUnit: {} as any })
+const dictList = ref({ timeUnit: [], openStatus: [] })
+const dictMap = ref({ timeUnit: {} as any, openStatus: {} as any })
 // 字段初始化
 async function dictInit() {
   // 指定字典Key
-  await dictRead({ groupKeys: ['timeUnit'] }).then((r) => {
+  await dictRead({ groupKeys: ['timeUnit', 'openStatus'] }).then((r) => {
     dictList.value = r.data.list
     dictMap.value = r.data.map
     props.pop.dictList = dictList

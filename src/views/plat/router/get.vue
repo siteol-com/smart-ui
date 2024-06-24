@@ -7,14 +7,12 @@
             <template #extra>
               <div>{{ $t('router.type.tips') }}</div>
             </template>
-            <a-switch v-model="formData.type" :checked-value="'1'" :unchecked-value="'0'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
+            <span class="formSpan">{{ pop.dictMap.routerType[formData.type] }}</span>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
+            <span class="formSpan">{{ pop.dictMap.serviceCode[formData.serviceCode] }}</span>
           </a-form-item>
         </a-col>
         <a-col :span="12">
@@ -27,71 +25,49 @@
             <span class="formSpan">{{ formData.name }}</span>
           </a-form-item>
         </a-col>
-        <a-col :span="12">
-          <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
-            <span class="formSpan">{{ pop.dictMap.serviceCode[formData.serviceCode] }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
+        <a-col :span="8">
           <a-form-item field="reqLogPrint" :label="$t('router.reqLogPrint')">
             <template #extra>
               <div>{{ $t('router.reqLogPrint.tips') }}</div>
             </template>
-            <a-switch v-model="formData.reqLogPrint" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
+            <span class="formSpan">{{ pop.dictMap.openStatus[formData.reqLogPrint] }}</span>
           </a-form-item>
         </a-col>
-        <a-col :span="24">
-          <a-form-item field="reqLogSecure" :label="$t('router.reqLogSecure')">
-            <template #extra>
-              <div>{{ $t('router.reqLogSecure.tips') }}</div>
-            </template>
-            <span class="formSpan">{{ formData.reqLogSecure }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
+        <a-col :span="8">
           <a-form-item field="resLogPrint" :label="$t('router.resLogPrint')">
             <template #extra>
               <div>{{ $t('router.resLogPrint.tips') }}</div>
             </template>
-            <a-switch v-model="formData.resLogPrint" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
+            <span class="formSpan">{{ pop.dictMap.openStatus[formData.resLogPrint] }}</span>
           </a-form-item>
         </a-col>
-        <a-col :span="24">
-          <a-form-item field="resLogSecure" :label="$t('router.resLogSecure')">
-            <template #extra>
-              <div>{{ $t('router.resLogSecure.tips') }}</div>
-            </template>
-            <span class="formSpan">{{ formData.resLogSecure }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
+        <a-col :span="8">
           <a-form-item field="logInDb" :label="$t('router.logInDb')">
             <template #extra>
               <div>{{ $t('router.logInDb.tips') }}</div>
             </template>
-            <a-switch v-model="formData.logInDb" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
+            <span class="formSpan">{{ pop.dictMap.openStatus[formData.logInDb] }}</span>
           </a-form-item>
+        </a-col>
+        <a-col :span="24" class="formGroup">
+          <a-row :gutter="20">
+            <a-col :span="24">
+              <a-form-item field="reqLogSecure" :label="$t('router.reqLogSecure')">
+                <template #extra>
+                  <div>{{ $t('router.reqLogSecure.tips') }}</div>
+                </template>
+                <span class="formSpan">{{ formData.reqLogSecure }}</span>
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item field="resLogSecure" :label="$t('router.resLogSecure')">
+                <template #extra>
+                  <div>{{ $t('router.resLogSecure.tips') }}</div>
+                </template>
+                <span class="formSpan">{{ formData.resLogSecure }}</span>
+              </a-form-item>
+            </a-col>
+          </a-row>
         </a-col>
         <a-col :span="24">
           <a-form-item field="remark" :label="$t('router.remark')">

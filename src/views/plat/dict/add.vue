@@ -5,7 +5,7 @@
         <a-form-item field="groupKey" :label="$t('dict.groupKey')" :rules="[{ required: true, message: $t('rule.required') }]">
           <a-select
             v-model="formData.groupKey"
-            :options="pop.dictList.groupKey"
+            :options="pop.dictList.dictGroup"
             allow-clear
             allow-search
             @change="groupKeyChange"

@@ -2,8 +2,8 @@
   <a-form :model="query" label-align="left" layout="vertical">
     <a-row :gutter="20">
       <a-col :span="8">
-        <a-form-item field="code" :label="$t('role.name')">
-          <a-input v-model="query.code" :max-length="16" allow-clear show-word-limit :placeholder="$t('role.name.sc')" />
+        <a-form-item field="name" :label="$t('role.name')">
+          <a-input v-model="query.name" :max-length="16" allow-clear show-word-limit :placeholder="$t('role.name.sc')" />
         </a-form-item>
       </a-col>
       <a-col :span="16"> </a-col>
@@ -104,7 +104,7 @@ const { t } = useI18n()
 const { page, setQuery, search, changePage, resetPage } = usePage()
 // 初始化查询对象
 const initQuery = () => {
-  return { code: '', serviceCode: '', type: '' }
+  return { name: '' }
 }
 // 查询对象
 const query = ref(initQuery())

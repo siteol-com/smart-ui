@@ -7,7 +7,7 @@
             <a-form-item field="groupKey" :label="$t('dict.groupKey')">
               <a-select
                 v-model="query.groupKey"
-                :options="dictList.groupKey"
+                :options="dictList.dictGroup"
                 allow-clear
                 allow-search
                 :placeholder="$t('button.all')" />
@@ -70,7 +70,7 @@
     :data="list"
     @page-change="changePage">
     <template #groupKey="{ record }">
-      {{ dictMap.groupKey[record.groupKey] }}
+      {{ dictMap.dictGroup[record.groupKey] }}
     </template>
     <template #choose="{ record }">
       <a-tag :color="chooseTag[record.choose]">{{ dictMap.openStatus[record.choose] }}</a-tag>
@@ -184,14 +184,14 @@ async function pageQuery() {
 setQuery(pageQuery)
 
 // 初始化字典对象
-const dictList = ref({ groupKey: [], openStatus: [] })
-const dictMap = ref({ groupKey: {} as any, openStatus: {} as any })
+const dictList = ref({ dictGroup: [], openStatus: [] })
+const dictMap = ref({ dictGroup: {} as any, openStatus: {} as any })
 // 临时对象处理
 
 // 字段初始化
 async function dictInit() {
   // 指定字典Key
-  await dictRead({ groupKeys: ['groupKey', 'openStatus'] }).then((r) => {
+  await dictRead({ groupKeys: ['dictGroup', 'openStatus'] }).then((r) => {
     dictList.value = r.data.list
     dictMap.value = r.data.map
     props.pop.dictList = dictList

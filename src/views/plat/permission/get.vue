@@ -9,7 +9,14 @@
             <span class="formSpan">{{ dictMap.permissionLevel[formData.level] }}</span>
           </a-form-item>
         </a-col>
-        <a-col :span="12"> </a-col>
+        <a-col :span="12">
+          <a-form-item field="static" :label="$t('permission.static')">
+            <template #extra>
+              <div>{{ $t('permission.static.tips') }}</div>
+            </template>
+            <span class="formSpan">{{ dictMap.openStatus[formData.static] }}</span>
+          </a-form-item>
+        </a-col>
         <a-col :span="12">
           <a-form-item field="name" :label="$t('permission.name')">
             <span class="formSpan">{{ formData.name }}</span>
@@ -18,21 +25,6 @@
         <a-col :span="12">
           <a-form-item field="alias" :label="$t('permission.alias')">
             <span class="formSpan">{{ formData.alias }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
-          <a-form-item field="static" :label="$t('permission.static')">
-            <template #extra>
-              <div>{{ $t('permission.static.tips') }}</div>
-            </template>
-            <a-switch v-model="formData.static" :checked-value="'0'" :unchecked-value="'1'" disabled>
-              <template #checked-icon>
-                <icon-check />
-              </template>
-              <template #unchecked-icon>
-                <icon-close />
-              </template>
-            </a-switch>
           </a-form-item>
         </a-col>
         <a-col :span="24">
@@ -83,12 +75,12 @@ async function get() {
 }
 props.pop.callBack = get
 // 初始化字典对象
-const dictList = ref({ permissionLevel: [], serviceCode: [] })
-const dictMap = ref({ permissionLevel: {} as any, serviceCode: {} as any })
+const dictList = ref({ permissionLevel: [], serviceCode: [], openStatus: [] })
+const dictMap = ref({ permissionLevel: {} as any, serviceCode: {} as any, openStatus: {} as any })
 // 字段初始化
 async function dictInit() {
   // 指定字典Key
-  await dictRead({ groupKeys: ['permissionLevel', 'serviceCode'] }).then((r) => {
+  await dictRead({ groupKeys: ['permissionLevel', 'serviceCode', 'openStatus'] }).then((r) => {
     dictList.value = r.data.list
     dictMap.value = r.data.map
     props.pop.dictList = dictList

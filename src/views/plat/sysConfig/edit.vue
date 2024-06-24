@@ -2,139 +2,100 @@
   <a-form label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
     <a-row :gutter="20">
       <a-col :span="24">
-        <a-form-item field="loginSwitch" :label="$t('sysConfig.loginSwitch')">
-          <template #extra>
-            <div>{{ $t('sysConfig.loginSwitch.tips') }}</div>
-          </template>
-          <a-switch v-model="formData.loginSwitch" :checked-value="'0'" :unchecked-value="'1'" @change="reFormData">
-            <template #checked-icon>
-              <icon-check />
-            </template>
-            <template #unchecked-icon>
-              <icon-close />
-            </template>
-          </a-switch>
-        </a-form-item>
+        <a-row :gutter="20">
+          <a-col :span="12">
+            <a-form-item field="loginSwitch" :label="$t('sysConfig.loginSwitch')">
+              <template #extra>
+                <div>{{ $t('sysConfig.loginSwitch.tips') }}</div>
+              </template>
+              <a-select v-model="formData.loginSwitch" :options="pop.dictList.openStatus" :placeholder="$t('rule.select')" />
+            </a-form-item>
+          </a-col>
+        </a-row>
       </a-col>
-      <a-col :span="12">
-        <a-form-item field="loginNum" :label="$t('sysConfig.loginNum')">
-          <a-input-number
-            v-model="formData.loginNum"
-            :disabled="formData.loginSwitch != '0'"
-            :min="1"
-            :max="9999999999"
-            allow-clear
-            show-word-limit
-            model-event="input" />
-        </a-form-item>
+      <a-col :span="24" class="formGroup" v-if="formData.loginSwitch == '0'">
+        <a-row :gutter="20">
+          <a-col :span="12">
+            <a-form-item field="loginNum" :label="$t('sysConfig.loginNum')">
+              <a-input-number v-model="formData.loginNum" :min="1" :max="9999999999" show-word-limit model-event="input" />
+            </a-form-item>
+          </a-col>
+        </a-row>
       </a-col>
       <a-col :span="24">
-        <a-form-item field="loginFailSwitch" :label="$t('sysConfig.loginFailSwitch')">
-          <template #extra>
-            <div>{{ $t('sysConfig.loginFailSwitch.tips') }}</div>
-          </template>
-          <a-switch v-model="formData.loginFailSwitch" :checked-value="'0'" :unchecked-value="'1'" @change="reFormData">
-            <template #checked-icon>
-              <icon-check />
-            </template>
-            <template #unchecked-icon>
-              <icon-close />
-            </template>
-          </a-switch>
-        </a-form-item>
+        <a-row :gutter="20">
+          <a-col :span="12">
+            <a-form-item field="loginFailSwitch" :label="$t('sysConfig.loginFailSwitch')">
+              <template #extra>
+                <div>{{ $t('sysConfig.loginFailSwitch.tips') }}</div>
+              </template>
+              <a-select v-model="formData.loginFailSwitch" :options="pop.dictList.openStatus" :placeholder="$t('rule.select')" />
+            </a-form-item>
+          </a-col>
+        </a-row>
       </a-col>
-      <a-col :span="12">
-        <a-form-item field="loginFailNum" :label="$t('sysConfig.loginFailNum')">
-          <a-input-number
-            v-model="formData.loginFailNum"
-            :disabled="formData.loginFailSwitch != '0'"
-            :min="1"
-            :max="9999999999"
-            allow-clear
-            show-word-limit
-            model-event="input" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="12">
-        <a-form-item field="loginFailUnit" :label="$t('sysConfig.loginFailUnit')">
-          <a-select
-            :disabled="formData.loginFailSwitch != '0'"
-            v-model="formData.loginFailUnit"
-            :options="pop.dictList.timeUnit"
-            allow-search
-            :placeholder="$t('rule.select')" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="12">
-        <a-form-item field="loginFailLockNum" :label="$t('sysConfig.loginFailLockNum')">
-          <a-input-number
-            v-model="formData.loginFailLockNum"
-            :disabled="formData.loginFailSwitch != '0'"
-            :min="1"
-            :max="9999999999"
-            allow-clear
-            show-word-limit
-            model-event="input" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="12">
-        <a-form-item field="loginFailLockUnit" :label="$t('sysConfig.loginFailLockUnit')">
-          <a-select
-            :disabled="formData.loginFailSwitch != '0'"
-            v-model="formData.loginFailLockUnit"
-            :options="pop.dictList.timeUnit"
-            allow-search
-            :placeholder="$t('rule.select')" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="12">
-        <a-form-item field="loginFailTryNum" :label="$t('sysConfig.loginFailTryNum')">
-          <a-input-number
-            v-model="formData.loginFailTryNum"
-            :disabled="formData.loginFailSwitch != '0'"
-            :min="1"
-            :max="9999999999"
-            allow-clear
-            show-word-limit
-            model-event="input" />
-        </a-form-item>
+      <a-col :span="24" class="formGroup" v-if="formData.loginFailSwitch == '0'">
+        <a-row :gutter="20">
+          <a-col :span="12">
+            <a-form-item field="loginFailNum" :label="$t('sysConfig.loginFailNum')">
+              <a-input-number v-model="formData.loginFailNum" :min="1" :max="9999999999" show-word-limit model-event="input" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-item field="loginFailUnit" :label="$t('sysConfig.loginFailUnit')">
+              <a-select
+                v-model="formData.loginFailUnit"
+                :options="pop.dictList.timeUnit"
+                allow-search
+                :placeholder="$t('rule.select')" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-item field="loginFailLockNum" :label="$t('sysConfig.loginFailLockNum')">
+              <a-input-number v-model="formData.loginFailLockNum" :min="1" :max="9999999999" show-word-limit model-event="input" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-item field="loginFailLockUnit" :label="$t('sysConfig.loginFailLockUnit')">
+              <a-select
+                v-model="formData.loginFailLockUnit"
+                :options="pop.dictList.timeUnit"
+                allow-search
+                :placeholder="$t('rule.select')" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-item field="loginFailTryNum" :label="$t('sysConfig.loginFailTryNum')">
+              <a-input-number v-model="formData.loginFailTryNum" :min="1" :max="9999999999" show-word-limit model-event="input" />
+            </a-form-item>
+          </a-col>
+        </a-row>
       </a-col>
       <a-col :span="24">
-        <a-form-item field="logoutSwitch" :label="$t('sysConfig.logoutSwitch')">
-          <template #extra>
-            <div>{{ $t('sysConfig.logoutSwitch.tips') }}</div>
-          </template>
-          <a-switch v-model="formData.logoutSwitch" :checked-value="'0'" :unchecked-value="'1'" @change="reFormData">
-            <template #checked-icon>
-              <icon-check />
-            </template>
-            <template #unchecked-icon>
-              <icon-close />
-            </template>
-          </a-switch>
-        </a-form-item>
+        <a-row :gutter="20">
+          <a-col :span="12">
+            <a-form-item field="logoutSwitch" :label="$t('sysConfig.logoutSwitch')">
+              <template #extra>
+                <div>{{ $t('sysConfig.logoutSwitch.tips') }}</div>
+              </template>
+              <a-select v-model="formData.logoutSwitch" :options="pop.dictList.openStatus" :placeholder="$t('rule.select')" />
+            </a-form-item>
+          </a-col>
+        </a-row>
       </a-col>
-      <a-col :span="12">
-        <a-form-item field="logoutNum" :label="$t('sysConfig.logoutNum')">
-          <a-input-number
-            v-model="formData.logoutNum"
-            :disabled="formData.logoutSwitch != '0'"
-            :min="1"
-            :max="9999999999"
-            allow-clear
-            show-word-limit
-            model-event="input" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="12">
-        <a-form-item field="logoutUnit" :label="$t('sysConfig.logoutUnit')">
-          <a-select
-            :disabled="formData.logoutSwitch != '0'"
-            v-model="formData.logoutUnit"
-            :options="pop.dictList.timeUnit"
-            allow-search
-            :placeholder="$t('rule.select')" />
-        </a-form-item>
+      <a-col :span="24" class="formGroup" v-if="formData.logoutSwitch == '0'">
+        <a-row :gutter="20">
+          <a-col :span="12">
+            <a-form-item field="logoutNum" :label="$t('sysConfig.logoutNum')">
+              <a-input-number v-model="formData.logoutNum" :min="1" :max="9999999999" show-word-limit model-event="input" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-item field="logoutUnit" :label="$t('sysConfig.logoutUnit')">
+              <a-select v-model="formData.logoutUnit" :options="pop.dictList.timeUnit" allow-search :placeholder="$t('rule.select')" />
+            </a-form-item>
+          </a-col>
+        </a-row>
       </a-col>
       <a-col :span="24">
         <a-divider />
@@ -212,6 +173,7 @@ function reFormData() {
 // const dictAdd = ref<FormInstance>();
 // 提交数据
 const submit = async ({ errors, values }: { errors: any; values: any }) => {
+  reFormData()
   if (load.value) return
   if (!errors) {
     setLoad(true)

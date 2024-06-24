@@ -6,7 +6,14 @@
           <span class="formSpan">{{ pop.dictMap.permissionLevel[formData.level] }}</span>
         </a-form-item>
       </a-col>
-      <a-col :span="12"></a-col>
+      <a-col :span="12">
+        <a-form-item field="static" :label="$t('permission.static')">
+          <template #extra>
+            <div>{{ $t('permission.static.tips') }}</div>
+          </template>
+          <span class="formSpan">{{ pop.dictMap.openStatus[formData.static] }}</span>
+        </a-form-item>
+      </a-col>
       <a-col :span="12">
         <a-form-item field="name" :label="$t('permission.name')">
           <a-input v-model="formData.name" :max-length="32" allow-clear show-word-limit :placeholder="$t('permission.name.place')" />
@@ -15,21 +22,6 @@
       <a-col :span="12">
         <a-form-item field="alias" :label="$t('permission.alias')">
           <a-input v-model="formData.alias" :max-length="32" allow-clear show-word-limit :placeholder="$t('permission.alias.place')" />
-        </a-form-item>
-      </a-col>
-      <a-col :span="12">
-        <a-form-item field="static" :label="$t('permission.static')">
-          <template #extra>
-            <div>{{ $t('permission.static.tips') }}</div>
-          </template>
-          <a-switch v-model="formData.static" :checked-value="'0'" :unchecked-value="'1'" disabled>
-            <template #checked-icon>
-              <icon-check />
-            </template>
-            <template #unchecked-icon>
-              <icon-close />
-            </template>
-          </a-switch>
         </a-form-item>
       </a-col>
       <a-col :span="24">
