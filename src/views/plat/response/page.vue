@@ -1,5 +1,5 @@
 <template>
-  <a-form :model="query" label-align="left" layout="vertical">
+  <a-form size="large" :model="query" label-align="left" layout="vertical">
     <a-row :gutter="20">
       <a-col :span="8">
         <a-form-item field="code" :label="$t('response.code')">
@@ -25,6 +25,7 @@
         <a-space>
           <a-tooltip :content="$t('button.add')" :mini="true">
             <a-button
+              size="large"
               type="primary"
               status="danger"
               @click="pop.open('add', 0, $t('response.add'), $t('response.add.sub'), {}, search)">
@@ -39,14 +40,14 @@
       <a-col :span="12" class="doBtn">
         <a-space>
           <a-tooltip :content="$t('button.search')" :mini="true">
-            <a-button type="primary" @click="search">
+            <a-button size="large" type="primary" @click="search">
               <template #icon>
                 <icon-search />
               </template>
             </a-button>
           </a-tooltip>
           <a-tooltip :content="$t('button.reset')" :mini="true">
-            <a-button @click="resetQuery">
+            <a-button size="large" @click="resetQuery">
               <template #icon>
                 <icon-refresh />
               </template>
@@ -59,7 +60,6 @@
   <a-divider />
   <!--表格，吸顶和滚动条不可同时使用 -->
   <a-table
-    :bordered="false"
     :scrollbar="false"
     :sticky-header="true"
     :row-key="'id'"
@@ -77,17 +77,17 @@
     <template #operations="{ record }">
       <a-space>
         <a-tooltip :content="$t('button.get')" :mini="true">
-          <a-button type="text" size="small" @click="pop.open('get', record.id, $t('response.get'), record.code, {}, search)">
+          <a-button type="text" @click="pop.open('get', record.id, $t('response.get'), record.code, {}, search)">
             <template #icon> <icon-eye /> </template>
           </a-button>
         </a-tooltip>
         <a-tooltip :content="$t('button.edit')" :mini="true">
-          <a-button type="text" size="small" @click="pop.open('edit', record.id, $t('response.edit'), record.code, {}, search)">
+          <a-button type="text" @click="pop.open('edit', record.id, $t('response.edit'), record.code, {}, search)">
             <template #icon> <icon-edit /> </template>
           </a-button>
         </a-tooltip>
         <a-tooltip :content="$t('button.lock')" :mini="true">
-          <a-button type="text" size="small" :disabled="record.mark === '1'" @click="openDelete(record)">
+          <a-button type="text" :disabled="record.mark === '1'" @click="openDelete(record)">
             <template #icon> <icon-lock /> </template>
           </a-button>
         </a-tooltip>
@@ -142,7 +142,7 @@ const columns = computed(() => [
   { title: t('response.zhCn'), dataIndex: 'zhCn', ellipsis: true, tooltip: true },
   { title: t('response.enUs'), dataIndex: 'enUs', ellipsis: true, tooltip: true },
   { title: t('response.remark'), dataIndex: 'remark', ellipsis: true, tooltip: true, width: 200 },
-  { title: t('base.oper'), slotName: 'operations', width: 125 }
+  { title: t('base.oper'), slotName: 'operations', width: 140 }
 ])
 // 列表对象
 const list = ref([])

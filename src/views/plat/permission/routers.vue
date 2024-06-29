@@ -1,14 +1,13 @@
 <template>
   <!--表格，子页无需吸顶 -->
   <a-table
-    :bordered="false"
     :scrollbar="false"
     :sticky-header="false"
     :row-key="'id'"
     :columns="RouterSelectColumns"
     :data="list"
     :pagination="false"
-    size="small"
+    size="medium"
     style="margin-top: 10px">
     <template #serviceCode="{ record }"> {{ dictMap.serviceCode[record.serviceCode] }} </template>
     <template #operations="{ record }" v-if="remove">

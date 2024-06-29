@@ -1,6 +1,6 @@
 <template>
   <a-spin :loading="load">
-    <a-form label-align="left" class="form" layout="vertical" :model="formData">
+    <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData">
       <a-row :gutter="20">
         <a-col :span="12">
           <a-form-item field="groupKey" :label="$t('dict.groupKey')">
@@ -8,11 +8,8 @@
           </a-form-item>
         </a-col>
         <a-col :span="12">
-          <a-form-item field="choose" :label="$t('dict.choose')">
-            <template #extra>
-              <div>{{ $t('dict.choose.tips') }}</div>
-            </template>
-            <span class="formSpan">{{ pop.dictMap.openStatus[formData.choose] }}</span>
+          <a-form-item field="remark" :label="$t('dict.remark')">
+            <span class="formSpan">{{ formData.remark }}</span>
           </a-form-item>
         </a-col>
         <a-col :span="12">
@@ -21,8 +18,11 @@
           </a-form-item>
         </a-col>
         <a-col :span="12">
-          <a-form-item field="remark" :label="$t('dict.remark')">
-            <span class="formSpan">{{ formData.remark }}</span>
+          <a-form-item field="choose" :label="$t('dict.choose')">
+            <template #extra>
+              <div>{{ $t('dict.choose.tips') }}</div>
+            </template>
+            <span class="formSpan">{{ pop.dictMap.openStatus[formData.choose] }}</span>
           </a-form-item>
         </a-col>
         <a-col :span="12">

@@ -1,5 +1,5 @@
 <template>
-  <a-form label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
+  <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
     <a-row :gutter="20">
       <a-col :span="12">
         <a-form-item field="groupKey" :label="$t('dict.groupKey')" :rules="[{ required: true, message: $t('rule.required') }]">
@@ -13,11 +13,8 @@
         </a-form-item>
       </a-col>
       <a-col :span="12">
-        <a-form-item field="choose" :label="$t('dict.choose')">
-          <template #extra>
-            <div>{{ $t('dict.choose.tips') }}</div>
-          </template>
-          <a-select v-model="formData.choose" :options="pop.dictList.openStatus" :placeholder="$t('rule.select')" />
+        <a-form-item field="remark" :label="$t('dict.remark')">
+          <a-input v-model="formData.remark" :max-length="64" allow-clear show-word-limit :placeholder="$t('dict.remark.place')" />
         </a-form-item>
       </a-col>
       <a-col :span="12">
@@ -29,14 +26,11 @@
         </a-form-item>
       </a-col>
       <a-col :span="12">
-        <a-form-item field="remark" :label="$t('dict.remark')">
-          <a-textarea
-            v-model="formData.remark"
-            :max-length="64"
-            allow-clear
-            show-word-limit
-            auto-size
-            :placeholder="$t('dict.remark.place')" />
+        <a-form-item field="choose" :label="$t('dict.choose')">
+          <template #extra>
+            <div>{{ $t('dict.choose.tips') }}</div>
+          </template>
+          <a-select v-model="formData.choose" :options="pop.dictList.openStatus" :placeholder="$t('rule.select')" />
         </a-form-item>
       </a-col>
       <a-col :span="12">
@@ -53,14 +47,13 @@
         <a-divider />
         <div class="doBtn">
           <a-space>
-            <a-button type="primary" html-type="submit" :loading="load">
+            <a-button size="large" type="primary" html-type="submit" :loading="load">
               <template #icon>
                 <icon-check />
               </template>
               {{ $t('button.submit') }}
             </a-button>
-            <a-divider direction="vertical" />
-            <a-button @click="pop.close()">
+            <a-button size="large" @click="pop.close()">
               <template #icon>
                 <icon-close />
               </template>

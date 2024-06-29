@@ -12,10 +12,9 @@
       <a-tooltip :content="$t('button.add.sub')" :mini="true">
         <a-button
           size="large"
-          :disabled="!data.level || data.level == '3'"
           type="primary"
           status="danger"
-          @click="pop.open('add', data.id, $t('permission.add.sub'), data.name, data, pop.callBack)">
+          @click="pop.open('add', data.id, $t('dept.add.sub'), data.name, data, pop.callBack)">
           <template #icon>
             <icon-plus />
           </template>
@@ -25,10 +24,9 @@
       <a-tooltip :content="$t('button.edit')" :mini="true">
         <a-button
           size="large"
-          :disabled="!data.level || data.id == 1"
           type="primary"
           status="warning"
-          @click="pop.open('edit', data.id, $t('permission.edit'), data.name, data, pop.callBack)">
+          @click="pop.open('edit', data.id, $t('dept.edit'), data.name, data, pop.callBack)">
           <template #icon>
             <icon-edit />
           </template>
@@ -36,15 +34,23 @@
       </a-tooltip>
       <!-- 同级排序 -->
       <a-tooltip :content="$t('button.sort')" :mini="true">
-        <a-button size="large" :disabled="!data.level || data.id == 1" type="primary" @click="confirmSort()">
+        <a-button size="large" :disabled="data.id == 1" type="primary" @click="confirmSort()">
           <template #icon>
             <icon-sort-ascending />
           </template>
         </a-button>
       </a-tooltip>
+      <!-- 转移 -->
+      <a-tooltip :content="$t('button.merge')" :mini="true">
+        <a-button size="large" :disabled="data.id == 1" type="primary" status="success" @click="confirmMerge()">
+          <template #icon>
+            <icon-branch />
+          </template>
+        </a-button>
+      </a-tooltip>
       <!-- 删除，根节点不可 -->
       <a-tooltip :content="$t('button.delete')" :mini="true">
-        <a-button size="large" :disabled="!data.level || data.id == 1" @click="confirmDelete()">
+        <a-button size="large" :disabled="data.id == 1" @click="confirmDelete()">
           <template #icon>
             <icon-delete />
           </template>
@@ -53,11 +59,11 @@
     </a-space>
   </a-col>
   <!-- 刪除确认-->
-  <a-modal v-model:visible="delItem.delConfirm" :title="$t('button.delete')" @before-ok="permissionDelete">
-    <div>{{ $t('permission.del.tips') }}</div>
+  <a-modal v-model:visible="delItem.delConfirm" :title="$t('button.delete')" @before-ok="deptDelete">
+    <div>{{ $t('dept.del.tips') }}</div>
   </a-modal>
   <!-- 排序确认-->
-  <a-modal v-model:visible="sortItem.sortConfirm" :width="340" :title="$t('permission.sort')" @before-ok="permissionSorting">
+  <a-modal v-model:visible="sortItem.sortConfirm" :width="340" :title="$t('dept.sort')" @before-ok="deptSorting">
     <a-spin :loading="load" class="sortList">
       <a-table
         :columns="columns"
@@ -72,7 +78,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref, computed } from 'vue'
-import { permissionDel, permissionBro, permissionSort } from '@/api/plat/permission'
+import { deptDel, deptBro, deptSort } from '@/api/plat/dept'
 import { useI18n } from 'vue-i18n'
 import type { Pop } from '@/utils/hooks/pop'
 import useLoad from '@/utils/hooks/load'
@@ -80,7 +86,7 @@ import useLoad from '@/utils/hooks/load'
 const { load, setLoad } = useLoad(false)
 const { t } = useI18n()
 // 路由列表对象
-const columns = computed(() => [{ title: t('plat.permission.name'), dataIndex: 'name' }])
+const columns = computed(() => [{ title: t('plat.dept.name'), dataIndex: 'name' }])
 // 入参读取
 const props = defineProps({
   pop: {
@@ -98,6 +104,17 @@ const props = defineProps({
     }
   }
 })
+// 部门合并
+const mergeItem = reactive({
+  mergeConfirm: false,
+  fromId: 0,
+  toId: 0
+})
+function confirmMerge() {
+  mergeItem.mergeConfirm = true
+  mergeItem.fromId = props.data.id
+}
+// function deptMerge() {}
 // 删除对象
 const delItem = reactive({
   delConfirm: false,
@@ -114,9 +131,9 @@ function confirmDelete() {
   delItem.delConfirm = true
 }
 // 权限删除
-async function permissionDelete() {
+async function deptDelete() {
   try {
-    await permissionDel(delItem.delId)
+    await deptDel(delItem.delId)
     // 刷新树
     props.pop.treeRefresh(false)
     return true
@@ -136,7 +153,7 @@ const sortItem = reactive({
 async function getBroList() {
   setLoad(true)
   try {
-    const res = await permissionBro(sortItem.sortId)
+    const res = await deptBro(sortItem.sortId)
     sortList.value = res.data
   } catch (err) {
     // DoNothing CommonPopUp
@@ -156,7 +173,7 @@ function sortChange(data: any) {
   sortList.value = data
 }
 // 提交排序
-async function permissionSorting() {
+async function deptSorting() {
   setLoad(true)
   try {
     const sortObj: any[] = []
@@ -166,7 +183,7 @@ async function permissionSorting() {
         sort: i
       })
     })
-    const res = await permissionSort(sortObj)
+    const res = await deptSort(sortObj)
     if (res.data) {
       // 刷新树
       props.pop.callBack()

@@ -1,6 +1,6 @@
 <template>
   <a-spin :loading="load">
-    <a-form label-align="left" class="form" layout="vertical" :model="formData">
+    <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData">
       <a-row :gutter="20">
         <a-col :span="12">
           <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
@@ -12,14 +12,15 @@
             <span class="formSpan">{{ pop.dictMap.responseType[formData.type] }}</span>
           </a-form-item>
         </a-col>
-        <a-col :span="24">
-          <a-row :gutter="20">
-            <a-col :span="12">
-              <a-form-item field="code" :label="$t('response.code')">
-                <span class="formSpan">{{ formData.code }}</span>
-              </a-form-item>
-            </a-col>
-          </a-row>
+        <a-col :span="12">
+          <a-form-item field="code" :label="$t('response.code')">
+            <span class="formSpan">{{ formData.code }}</span>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item field="remark" :label="$t('response.remark')">
+            <span class="formSpan">{{ formData.remark }}</span>
+          </a-form-item>
         </a-col>
         <a-col :span="12">
           <a-form-item field="zhCn" :label="$t('response.zhCn')">
@@ -29,11 +30,6 @@
         <a-col :span="12">
           <a-form-item field="enUs" :label="$t('response.enUs')">
             <span class="formSpan">{{ formData.enUs }}</span>
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
-          <a-form-item field="remark" :label="$t('response.remark')">
-            <span class="formSpan">{{ formData.remark }}</span>
           </a-form-item>
         </a-col>
       </a-row>

@@ -1,5 +1,5 @@
 <template>
-  <a-form label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
+  <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
     <a-row :gutter="20">
       <a-col :span="24">
         <a-row :gutter="20">
@@ -101,14 +101,13 @@
         <a-divider />
         <div class="doBtn">
           <a-space>
-            <a-button type="primary" html-type="submit" :loading="load">
+            <a-button size="large" type="primary" html-type="submit" :loading="load">
               <template #icon>
                 <icon-check />
               </template>
               {{ $t('button.submit') }}
             </a-button>
-            <a-divider direction="vertical" />
-            <a-button @click="pop.close()">
+            <a-button size="large" @click="pop.close()">
               <template #icon>
                 <icon-close />
               </template>

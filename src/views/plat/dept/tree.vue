@@ -1,7 +1,7 @@
 <template>
   <a-input-search
     v-model="treeSearch"
-    :placeholder="$t('permission.name.sc')"
+    :placeholder="$t('dept.name.sc')"
     size="large"
     allow-clear
     style="margin: 4px 0 10px 0"
@@ -25,7 +25,7 @@ import { onMounted, ref, nextTick } from 'vue'
 import useLoad from '@/utils/hooks/load'
 import { treeNode } from '@/api/comm'
 import type { Pop } from '@/utils/hooks/pop'
-import { permissionTree } from '@/api/plat/permission'
+import { deptTree } from '@/api/plat/dept'
 // 树Dom
 const myTree = ref<any>()
 // 入参读取
@@ -72,7 +72,7 @@ function treeFilter() {
   list.value = loop(origList.value)
 }
 // 树选择对象 默认选择ROOT
-const treeSelect = ref<any>(['ROOT'])
+const treeSelect = ref<any>(['1'])
 // 刷新选择
 async function refreshSelect(keyObj: any) {
   props.pop.itemId = keyObj.id
@@ -96,7 +96,7 @@ async function treeQuery(init: boolean) {
   setLoad(true)
   try {
     // 路由分页
-    const res = await permissionTree({})
+    const res = await deptTree({})
     origList.value = res.data
     list.value = res.data
     // 树过滤保留
@@ -117,7 +117,7 @@ async function treeQuery(init: boolean) {
 // 取根节点
 function getRootNode() {
   if (origList.value.length > 0) {
-    treeSelect.value = ['ROOT']
+    treeSelect.value = ['1']
     const root = origList.value[0]
     return refreshSelect({ id: root.id, title: root.title })
   }

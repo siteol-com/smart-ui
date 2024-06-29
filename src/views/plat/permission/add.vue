@@ -1,5 +1,5 @@
 <template>
-  <a-form label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
+  <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
     <a-row :gutter="20">
       <a-col :span="12">
         <a-form-item field="level" :label="$t('permission.level')">
@@ -28,7 +28,7 @@
         <a-divider orientation="left">
           {{ $t('permission.routers') }}
           <a-tooltip :content="$t('permission.routers.check')" :mini="true">
-            <a-button type="primary" size="mini" @click="open">
+            <a-button type="primary" size="small" @click="open">
               <template #icon>
                 <icon-edit />
               </template>
@@ -41,14 +41,13 @@
         <a-divider />
         <div class="doBtn">
           <a-space>
-            <a-button type="primary" html-type="submit" :loading="load">
+            <a-button size="large" type="primary" html-type="submit" :loading="load">
               <template #icon>
                 <icon-check />
               </template>
               {{ $t('button.submit') }}
             </a-button>
-            <a-divider direction="vertical" />
-            <a-button @click="pop.close()">
+            <a-button size="large" @click="pop.treeClose()">
               <template #icon>
                 <icon-close />
               </template>

@@ -1,6 +1,6 @@
 <template>
   <a-spin :loading="load">
-    <a-form label-align="left" class="form" layout="vertical" :model="formData">
+    <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData">
       <a-row :gutter="20">
         <a-col :span="12">
           <a-row :gutter="20">
@@ -9,7 +9,7 @@
                 <template #extra>
                   <div>{{ $t('role.name.tips') }}</div>
                 </template>
-                <a-input v-model="formData.name" :max-length="16" allow-clear show-word-limit :placeholder="$t('role.name.place')" />
+                <span class="formSpan">{{ formData.name }}</span>
               </a-form-item>
             </a-col>
             <a-col :span="24">
@@ -22,13 +22,7 @@
             </a-col>
             <a-col :span="24">
               <a-form-item field="remark" :label="$t('role.remark')">
-                <a-textarea
-                  v-model="formData.remark"
-                  :max-length="64"
-                  allow-clear
-                  show-word-limit
-                  auto-size
-                  :placeholder="$t('role.remark.place')" />
+                <span class="formSpan">{{ formData.remark }}</span>
               </a-form-item>
             </a-col>
           </a-row>
@@ -43,6 +37,7 @@
                   ref="myTree"
                   v-model:checked-keys="formData.permissionIds"
                   v-model:half-checked-keys="formData.halfPermissionIds"
+                  size="large"
                   :field-names="{ key: 'id' }"
                   :data="list"
                   :show-line="true" />

@@ -1,6 +1,6 @@
 <template>
   <a-spin :loading="load">
-    <a-form label-align="left" class="form" layout="vertical" :model="formData">
+    <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData">
       <a-row :gutter="20">
         <a-col :span="24">
           <a-row :gutter="20">
@@ -95,6 +95,7 @@
           <div class="doBtn">
             <a-space>
               <a-button
+                size="large"
                 type="primary"
                 :loading="load"
                 @click="pop.open('edit', 1, $t('sysConfig.edit'), $t('sysConfig.system'), {}, get)">
@@ -103,8 +104,7 @@
                 </template>
                 {{ $t('button.edit') }}
               </a-button>
-              <a-divider direction="vertical" />
-              <a-button :loading="load" @click="get()">
+              <a-button size="large" :loading="load" @click="get()">
                 <template #icon>
                   <icon-sync />
                 </template>

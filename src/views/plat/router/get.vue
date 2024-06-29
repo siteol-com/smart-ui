@@ -1,6 +1,6 @@
 <template>
   <a-spin :loading="load">
-    <a-form label-align="left" class="form" layout="vertical" :model="formData">
+    <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData">
       <a-row :gutter="24">
         <a-col :span="12">
           <a-form-item field="type" :label="$t('router.type')">

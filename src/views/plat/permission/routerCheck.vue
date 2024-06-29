@@ -1,5 +1,5 @@
 <template>
-  <a-form :model="query" label-align="left" layout="vertical">
+  <a-form size="medium" :model="query" label-align="left" layout="vertical">
     <a-row :gutter="20">
       <a-col :span="8">
         <a-form-item field="name" :label="$t('router.name')">
@@ -24,14 +24,14 @@
       <a-col :span="24" class="doBtn">
         <a-space>
           <a-tooltip :content="$t('button.search')" :mini="true">
-            <a-button type="primary" @click="search">
+            <a-button size="medium" type="primary" @click="search">
               <template #icon>
                 <icon-search />
               </template>
             </a-button>
           </a-tooltip>
           <a-tooltip :content="$t('button.reset')" :mini="true">
-            <a-button @click="resetQuery">
+            <a-button size="medium" @click="resetQuery">
               <template #icon>
                 <icon-refresh />
               </template>
@@ -44,8 +44,8 @@
   <a-divider />
   <!--表格，吸顶和滚动条不可同时使用 -->
   <a-table
+    size="medium"
     v-model:selectedKeys="selectedKeys"
-    :bordered="false"
     :scrollbar="false"
     :sticky-header="true"
     :row-key="'id'"

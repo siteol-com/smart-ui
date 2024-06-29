@@ -1,5 +1,5 @@
 <template>
-  <a-form label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
+  <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
     <a-row :gutter="20">
       <a-col :span="12">
         <a-form-item field="type" :label="$t('router.type')">
@@ -60,7 +60,6 @@
                 :max-length="256"
                 allow-clear
                 show-word-limit
-                auto-size
                 :placeholder="$t('router.reqLogSecure.place')" />
             </a-form-item>
           </a-col>
@@ -74,7 +73,6 @@
                 :max-length="256"
                 allow-clear
                 show-word-limit
-                auto-size
                 :placeholder="$t('router.resLogSecure.place')" />
             </a-form-item>
           </a-col>
@@ -87,7 +85,6 @@
             :max-length="128"
             allow-clear
             show-word-limit
-            auto-size
             :placeholder="$t('router.remark.place')" />
         </a-form-item>
       </a-col>
@@ -95,19 +92,18 @@
         <a-divider />
         <div class="doBtn">
           <a-space>
-            <a-button type="primary" html-type="submit" :loading="load">
+            <a-button size="large" type="primary" html-type="submit" :loading="load">
               <template #icon>
                 <icon-check />
               </template>
               {{ $t('button.submit') }}
             </a-button>
-            <a-divider direction="vertical" />
-            <a-button @click="pop.close()">
+            <a-button size="large" @click="pop.close()">
               <template #icon>
                 <icon-close />
               </template>
-              {{ $t('button.cancel') }}</a-button
-            >
+              {{ $t('button.cancel') }}
+            </a-button>
           </a-space>
         </div>
       </a-col>
