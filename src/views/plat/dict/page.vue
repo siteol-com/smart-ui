@@ -213,8 +213,7 @@ function resetQuery() {
   list.value = []
   // 重置分页
   resetPage()
-  // 重置查詢
-  pageQuery()
+  init()
 }
 // 排序对象
 const sortList = ref([])
@@ -293,7 +292,7 @@ onMounted(() => {
 // 语言监听
 watch(currentLocale, (n, o) => {
   if (n !== o) {
-    getDictGroup()
+    dictInit()
   }
 })
 </script>

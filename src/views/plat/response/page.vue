@@ -190,8 +190,7 @@ function resetQuery() {
   list.value = []
   // 重置分页
   resetPage()
-  // 重置查詢
-  pageQuery()
+  init()
 }
 // 删除对象
 const delItem = reactive({

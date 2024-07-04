@@ -37,3 +37,7 @@ export function roleEdit(req: role) {
 export function roleDel(req: any) {
   return axios.post('/plat/role/del', { id: req })
 }
+
+export function roleList() {
+  return axios.post('/plat/role/list')
+}
