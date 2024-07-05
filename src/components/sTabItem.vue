@@ -1,19 +1,21 @@
 <template>
   <div class="stab" :class="{ stabCheck: routeCheck, stabMounted: mounteDone }" @click="go()">
     <div class="stabi" :class="{ stabinit: initDone }">
-      <icon-loading class="stabLoad" :size="18" />
-      <icon-dashboard v-if="item.isHome" class="stabGo" :size="18" />
-      <span class="stabGo" v-else>
-        <icon-compass v-if="routeCheck" :size="18" />
-        <icon-pause-circle v-else :size="18" />
+      <icon-loading class="stabLoad" :size="20" />
+      <span class="stabGo">
+        <icon-dashboard v-if="routeCheck && item.isHome" class="stabGo" :size="24" />
+        <icon-compass v-if="routeCheck && !item.isHome" :size="24" />
+        <icon-pause-circle v-if="!routeCheck" :size="20" />
       </span>
     </div>
     <div class="stabp">
       {{ $t(item.title) }}
     </div>
-    <a-button v-if="!item.isHome" class="stabx" size="mini" type="text" shape="circle" @click.stop="removeTab()">
-      <icon-close :size="14" />
-    </a-button>
+    <div class="stabx" v-if="!item.isHome">
+      <a-button size="mini" type="text" shape="circle" @click.stop="removeTab()">
+        <icon-close :size="18" />
+      </a-button>
+    </div>
   </div>
 </template>
 

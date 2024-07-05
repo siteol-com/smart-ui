@@ -1,7 +1,7 @@
 <template>
   <div class="head-btn-item">
     <a-tooltip :content="theme === 'light' ? $t('base.theme.toDark') : $t('base.theme.toLight')">
-      <a-button class="head-btn" :shape="'circle'" @click="setTheme">
+      <a-button size="large" class="head-btn" :shape="'circle'" @click="setTheme">
         <template #icon>
           <icon-moon-fill v-if="theme === 'dark'" :style="btnSize" />
           <icon-sun-fill v-else :style="btnSize" />
@@ -12,7 +12,7 @@
   <div class="head-btn-item">
     <a-dropdown trigger="click">
       <a-tooltip :content="$t('base.language')">
-        <a-button class="head-btn" :shape="'circle'">
+        <a-button size="large" class="head-btn" :shape="'circle'">
           <template #icon>
             <icon-language :style="btnSize" />
           </template>

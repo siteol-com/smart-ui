@@ -1,7 +1,7 @@
 <template>
   <div class="head-wrapper">
     <div class="head-left">
-      <a-button class="head-btn" :shape="'circle'" @click="setCollapsed">
+      <a-button size="large" class="head-btn" :shape="'circle'" @click="setCollapsed">
         <template #icon>
           <icon-menu-fold v-if="!collapsed" :style="btnSize" />
           <icon-menu-unfold v-else :style="btnSize" />
