@@ -75,8 +75,8 @@
     </template>
   </a-table>
   <!-- 刪除确认-->
-  <a-modal v-model:visible="delItem.delConfirm" :width="400" :title="$t('title.lock')" @before-ok="deleting">
-    <div>{{ $t('role.del.tip') }}</div>
+  <a-modal v-model:visible="delItem.delConfirm" :width="400" :title="$t('title.delete')" @before-ok="deleting">
+    <div>{{ $t('role.del.tips') }}</div>
   </a-modal>
 </template>
 

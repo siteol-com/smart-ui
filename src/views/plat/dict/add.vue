@@ -22,7 +22,7 @@
           <template #extra>
             <div>{{ $t('dict.val.tips') + (nextVal != -1 ? nextVal : $t('dict.val.nextWait')) }}</div>
           </template>
-          <a-input v-model="formData.val" :max-length="16" allow-clear show-word-limit :placeholder="$t('dict.val.place')" />
+          <a-input v-model="formData.val" :max-length="32" allow-clear show-word-limit :placeholder="$t('dict.val.place')" />
         </a-form-item>
       </a-col>
       <a-col :span="12">

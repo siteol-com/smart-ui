@@ -53,7 +53,7 @@
     </a-space>
   </a-col>
   <!-- 刪除确认-->
-  <a-modal v-model:visible="delItem.delConfirm" :title="$t('button.delete')" @before-ok="permissionDelete">
+  <a-modal v-model:visible="delItem.delConfirm" :title="$t('title.delete')" @before-ok="permissionDelete">
     <div>{{ $t('permission.del.tips') }}</div>
   </a-modal>
   <!-- 排序确认-->

@@ -6,13 +6,15 @@ export type dept = {
   name: string // 部门名称
   pid: number // 父级部门ID，租户创建时默认创建根部门，父级ID=1
   permissionType: string // 权限类型，枚举：0_本部门与子部门 1_本部门 2_个人 3_全局 4_指定部门 5_指定人
+  accounts: Array<Array<any>> // 部门账号
 }
 export function deptInit() {
   return ref<dept>({
     id: 0,
     name: '',
     pid: 1,
-    permissionType: '0'
+    permissionType: '0',
+    accounts: [[], []]
   })
 }
 
@@ -42,4 +44,8 @@ export function deptBro(req: any) {
 
 export function deptSort(req: any) {
   return axios.post('/plat/dept/sort', req)
+}
+
+export function deptTo(req: any) {
+  return axios.post('/plat/dept/to', req)
 }

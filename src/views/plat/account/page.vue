@@ -104,12 +104,12 @@
     </template>
   </a-table>
   <!-- 刪除确认-->
-  <a-modal v-model:visible="delItem.delConfirm" :width="400" :title="$t('title.del')" @before-ok="deleting">
-    <div>{{ $t('account.del.tip') }}</div>
+  <a-modal v-model:visible="delItem.delConfirm" :width="400" :title="$t('title.delete')" @before-ok="deleting">
+    <div>{{ $t('account.del.tips') }}</div>
   </a-modal>
   <!-- 重置确认-->
   <a-modal v-model:visible="resetItem.resetConfirm" :width="400" :title="$t('account.resetPwd')" @before-ok="reseting">
-    <div>{{ $t('account.resetPwd.tip') }}</div>
+    <div>{{ $t('account.resetPwd.tips') }}</div>
   </a-modal>
 </template>
 

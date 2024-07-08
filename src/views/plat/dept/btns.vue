@@ -41,7 +41,7 @@
         </a-button>
       </a-tooltip>
       <!-- 转移 -->
-      <a-tooltip :content="$t('button.merge')" :mini="true">
+      <a-tooltip :content="$t('dept.to')" :mini="true">
         <a-button size="large" :disabled="data.id == 1" type="primary" status="success" @click="confirmMerge()">
           <template #icon>
             <icon-branch />
@@ -59,7 +59,7 @@
     </a-space>
   </a-col>
   <!-- 刪除确认-->
-  <a-modal v-model:visible="delItem.delConfirm" :title="$t('button.delete')" @before-ok="deptDelete">
+  <a-modal v-model:visible="delItem.delConfirm" :title="$t('title.delete')" @before-ok="deptDelete">
     <div>{{ $t('dept.del.tips') }}</div>
   </a-modal>
   <!-- 排序确认-->
@@ -74,19 +74,48 @@
         @change="sortChange" />
     </a-spin>
   </a-modal>
+  <!-- 迁移确认-->
+  <a-modal v-model:visible="mergeItem.mergeConfirm" :width="500" :title="$t('dept.to')" @before-ok="deptMerge">
+    <a-spin :loading="load">
+      <a-form size="large" label-align="left" class="form" :model="mergeItem" layout="vertical">
+        <a-row :gutter="20">
+          <a-col :span="24">
+            <a-form-item field="toId" :label="$t('dept.toId')" :rules="[{ required: true, message: $t('rule.required') }]">
+              <a-tree-select
+                v-model="mergeItem.toId"
+                :allow-search="true"
+                :allow-clear="true"
+                :data="mergeItem.deptTree"
+                :filter-tree-node="filterDept"
+                :placeholder="$t('rule.select')" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-item field="toType" :label="$t('dept.toType')">
+              <template #extra>
+                <div>{{ $t('dept.toType.tips') }}</div>
+              </template>
+              <a-select v-model="mergeItem.toType" :options="pop.dictList.deptToType" :placeholder="$t('rule.select')" />
+            </a-form-item>
+          </a-col>
+        </a-row>
+      </a-form>
+    </a-spin>
+  </a-modal>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref, computed } from 'vue'
-import { deptDel, deptBro, deptSort } from '@/api/plat/dept'
+import { deptDel, deptBro, deptSort, deptTo } from '@/api/plat/dept'
 import { useI18n } from 'vue-i18n'
 import type { Pop } from '@/utils/hooks/pop'
+import { deptTree } from '@/api/plat/dept'
 import useLoad from '@/utils/hooks/load'
 // 加载中变量
 const { load, setLoad } = useLoad(false)
 const { t } = useI18n()
 // 路由列表对象
-const columns = computed(() => [{ title: t('plat.dept.name'), dataIndex: 'name' }])
+const columns = computed(() => [{ title: t('dept.name'), dataIndex: 'name' }])
 // 入参读取
 const props = defineProps({
   pop: {
@@ -104,17 +133,54 @@ const props = defineProps({
     }
   }
 })
+// 检索部门
+function filterDept(searchValue: string, nodeData: any) {
+  return nodeData.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
+}
 // 部门合并
 const mergeItem = reactive({
   mergeConfirm: false,
-  fromId: 0,
-  toId: 0
+  id: 0,
+  toId: '',
+  toType: '0',
+  deptTree: []
 })
-function confirmMerge() {
+// 获取部门树
+async function confirmMerge() {
   mergeItem.mergeConfirm = true
-  mergeItem.fromId = props.data.id
+  mergeItem.id = props.data.id
+  mergeItem.toId = ''
+  mergeItem.toType = '0'
+  mergeItem.deptTree = []
+  setLoad(true)
+  try {
+    const res = await deptTree({})
+    mergeItem.deptTree = res.data
+  } catch (err) {
+    // DoNothing CommonPopUp
+  } finally {
+    setLoad(false)
+  }
 }
-// function deptMerge() {}
+// 部门合并
+async function deptMerge() {
+  try {
+    await deptTo({
+      id: mergeItem.id,
+      toId: Number(mergeItem.toId),
+      toType: mergeItem.toType
+    })
+    // 刷新树
+    props.pop.treeRefresh(false)
+    // 选中目标部门
+
+    return true
+  } catch (err) {
+    return false
+  } finally {
+    // Nothing
+  }
+}
 // 删除对象
 const delItem = reactive({
   delConfirm: false,

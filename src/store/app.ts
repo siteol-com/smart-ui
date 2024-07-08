@@ -9,7 +9,7 @@ const appStore = defineStore('app', {
   state: (): AppState => ({
     collapsed: false,
     theme: localStorage.getItem('theme') ? (localStorage.getItem('theme') as string) : 'light',
-    headIconSize: { fontSize: '18px' }
+    headIconSize: { fontSize: '22px' }
   }),
   getters: {
     getHeadIconSize(): any {

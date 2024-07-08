@@ -3,9 +3,9 @@
     <div class="stabi" :class="{ stabinit: initDone }">
       <icon-loading class="stabLoad" :size="20" />
       <span class="stabGo">
-        <icon-dashboard v-if="routeCheck && item.isHome" class="stabGo" :size="24" />
-        <icon-compass v-if="routeCheck && !item.isHome" :size="24" />
-        <icon-pause-circle v-if="!routeCheck" :size="20" />
+        <icon-dashboard :class="{ stabShow: routeCheck && item.isHome }" :size="24" />
+        <icon-compass :class="{ stabShow: routeCheck && !item.isHome }" :size="24" />
+        <icon-pause-circle :class="{ stabShow: !routeCheck }" :size="20" />
       </span>
     </div>
     <div class="stabp">
