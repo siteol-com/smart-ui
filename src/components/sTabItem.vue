@@ -67,7 +67,7 @@ function removeTab() {
     if (routeCheck.value) {
       router.push({ name: tagList.value[props.index - 1].name })
     }
-  }, 400)
+  }, 350)
 }
 // 跳转
 function go() {

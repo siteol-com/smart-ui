@@ -1,9 +1,12 @@
 <template>
   <div class="layout index">
+    <div class="i_fix head-wrapper">
+      <SHeadBtns />
+    </div>
     <div class="wel" :class="{ done: done }">
       <div class="welogo">
-        <img src="/public/static/img/logo.png" />
-        <img class="welrun" src="/public/static/img/logo.png" />
+        <img :src="logoImg" />
+        <img class="welrun" :src="logoImg" />
       </div>
       <div class="welinfo">{{ $t(tips) }}</div>
       <div class="load"><icon-loading :size="36" /></div>
@@ -12,8 +15,18 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import SHeadBtns from '@/components/sHeadBtns.vue'
+import { onMounted, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { isLogin } from '@/utils/hooks/token'
+import { appStore } from '@/store'
+// 应用配置
+const app = appStore()
+const logoImg = computed(() => {
+  let d = app.theme == 'dark' ? '-dark' : ''
+  return '/static/img/logo' + d + '.png'
+})
+// 路由对象
 const router = useRouter()
 
 // 默认欢迎语
@@ -21,20 +34,30 @@ const tips = ref('base.welcome')
 const done = ref(false)
 // 读取登陆数据
 function readLogin() {
-  // TODO 读取登陆信息
+  // 读取登陆信息
+  tips.value = 'base.tryReadLogin'
   setTimeout(() => {
-    // TODO  UI 临时跳转
+    let toUrl = '/center/index'
+    // 如果尚未登录提示，跳转登录画面
+    if (isLogin()) {
+      tips.value = 'base.tryReadLoginHave'
+    } else {
+      tips.value = 'base.tryReadLoginNull'
+      toUrl = '/login'
+    }
     setTimeout(() => {
-      router.push('/center/index')
+      router.push(toUrl)
     }, 1500)
-  }, 500)
+  }, 1500)
 }
 // 初始化方法
 function init() {
   // 基本数据加载完成
   setTimeout(() => {
     done.value = true
-    readLogin()
+    setTimeout(() => {
+      readLogin()
+    }, 1500)
   }, 500)
 }
 // 界面渲染后
@@ -53,6 +76,15 @@ onMounted(() => {
   color: var(--color-text-1);
   * {
     transition: all 0.4s ease-in-out;
+  }
+  .i_fix {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    width: 155px;
+    display: flex;
+    align-items: center;
+    z-index: 2;
   }
   .wel {
     text-align: center;

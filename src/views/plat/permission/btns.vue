@@ -64,7 +64,6 @@
         :data="sortList"
         :draggable="{ type: 'handle', width: 40 }"
         :pagination="false"
-        :show-header="false"
         @change="sortChange" />
     </a-spin>
   </a-modal>
@@ -80,7 +79,7 @@ import useLoad from '@/utils/hooks/load'
 const { load, setLoad } = useLoad(false)
 const { t } = useI18n()
 // 路由列表对象
-const columns = computed(() => [{ title: t('plat.permission.name'), dataIndex: 'name' }])
+const columns = computed(() => [{ title: t('permission.name'), dataIndex: 'name' }])
 // 入参读取
 const props = defineProps({
   pop: {

@@ -2,7 +2,7 @@
   <div class="head-btn-item">
     <a-dropdown trigger="click">
       <a-avatar :size="36" class="head-btn" :style="{ cursor: 'pointer' }">
-        <img alt="avatar" :src="'/public/static/img/icon.png'" />
+        <img alt="avatar" :src="'/static/img/icon.png'" />
       </a-avatar>
       <template #content>
         <a-doption>

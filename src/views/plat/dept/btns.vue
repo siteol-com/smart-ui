@@ -70,7 +70,6 @@
         :data="sortList"
         :draggable="{ type: 'handle', width: 40 }"
         :pagination="false"
-        :show-header="false"
         @change="sortChange" />
     </a-spin>
   </a-modal>

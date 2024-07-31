@@ -5,6 +5,8 @@ import { Message, Modal } from '@arco-design/web-vue'
 import { userStore } from '@/store'
 import { getToken } from '@/utils/hooks/token'
 
+let modalUnOpen = true
+
 // 绑定请求URL
 if (import.meta.env.VITE_API_BASE_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL
@@ -54,29 +56,34 @@ axios.interceptors.response.use(
     const { response } = error
     const { status, data } = response
     // 错误文言
-    let msg = null
+    let msg = data ? data.msg : 'Request Error'
     // 处理错误
     switch (status) {
       // 400 请求数据不合法（校验失败）
       // 500 系统未知异常（意料之外的错误）
-      case 400 || 500:
-        msg = data ? data.msg : null
+      case 400:
+      case 500:
         break
       // 401 未授权、未登陆
       // 403 禁止访问（无权限）
-      case 401 || 403:
-        Modal.error({
-          title: i18n.global.t('base.logout.noauth'),
-          content: data.msg || 'Request Error', // 服务端翻译好的提示文言
-          okText: i18n.global.t('base.ok'),
-          async onOk() {
-            // 登出处理
-            const user = userStore()
-            await user.logout()
-            // 跳去着陆页
-            window.location.replace('/')
-          }
-        })
+      case 401:
+      case 403:
+        msg = data ? data.msg : 'Request Error'
+        if (modalUnOpen) {
+          modalUnOpen = false
+          Modal.error({
+            title: i18n.global.t('base.logout.noauth'),
+            content: '', // 服务端翻译好的提示文言
+            okText: i18n.global.t('button.ok'),
+            async onOk() {
+              // 登出处理
+              const user = userStore()
+              await user.logout()
+              // 跳去着陆页
+              window.location.replace('/')
+            }
+          })
+        }
         return Promise.reject(error)
       default:
         msg = error.msg

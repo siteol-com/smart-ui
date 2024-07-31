@@ -36,8 +36,8 @@ const collapsed = computed(() => {
 })
 // LOGO数据
 const logo: any = {
-  light: '/public/static/img/logo.png',
-  dark: '/public/static/img/logo-dark.png',
-  collapsed: '/public/static/img/icon.png'
+  light: '/static/img/logo.png',
+  dark: '/static/img/logo-dark.png',
+  collapsed: '/static/img/icon.png'
 }
 </script>

@@ -19,6 +19,8 @@ function routerSentinelPush(router: Router) {
 // 路由哨兵检查路由访问 - 登陆 - 授权
 function routerSentinelCheck(router: Router) {
   router.beforeEach(async (to, from, next) => {
+    console.log(to)
+    console.log(from)
     NProgress.start()
     next()
   })
