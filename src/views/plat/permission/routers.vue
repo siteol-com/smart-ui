@@ -13,7 +13,7 @@
     <template #operations="{ record }" v-if="remove">
       <a-space>
         <a-tooltip :content="$t('button.delete')" :mini="true">
-          <a-button type="text" size="small" :disabled="record.mark === '1'" @click="remove(record.id)">
+          <a-button type="text" size="small" @click="remove(record.id)">
             <template #icon> <icon-delete /> </template>
           </a-button>
         </a-tooltip>

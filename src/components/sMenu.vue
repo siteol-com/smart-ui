@@ -92,7 +92,6 @@ export default defineComponent({
       // const { requiresAuth, activeMenu, hideInMenu } = newRoute.meta;
       const { hideInMenu } = newRoute.meta
       // if (requiresAuth && (!hideInMenu || activeMenu)) {
-      // 临时编写
       if (!hideInMenu) {
         const menuOpenKeys = findMenuOpenKeys(newRoute.name as string)
         const keySet = new Set([...menuOpenKeys, ...openKeys.value])
@@ -110,8 +109,7 @@ export default defineComponent({
       <a-menu
         mode={'vertical'}
         v-model:collapsed={collapsed.value}
-        v-model:open-keys={openKeys.value}
-        auto-open={false}
+        auto-open={true}
         selected-keys={selectedKey.value}
         auto-open-selected={true}
         collapsed-width={60}

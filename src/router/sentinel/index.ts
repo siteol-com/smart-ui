@@ -6,8 +6,13 @@
  */
 import { setRouteEmitter } from '@/utils/routeListener'
 import type { Router } from 'vue-router'
+import { Modal } from '@arco-design/web-vue'
+import i18n from '@/locale'
 import NProgress from 'nprogress' // progress bar
+import { userStore } from '@/store'
+import userPermission from '@/utils/hooks/permission'
 
+const permission = userPermission()
 // 路由哨兵发布路由变化消息
 function routerSentinelPush(router: Router) {
   router.beforeEach(async (to) => {
@@ -19,9 +24,30 @@ function routerSentinelPush(router: Router) {
 // 路由哨兵检查路由访问 - 登陆 - 授权
 function routerSentinelCheck(router: Router) {
   router.beforeEach(async (to, from, next) => {
-    console.log(to)
     console.log(from)
     NProgress.start()
+    const user = userStore()
+    // 没有账号信息
+    if (to.meta?.requiresAuth && user.accountId == 0) {
+      // 获取用户权限
+      await user.getUserInfo()
+    }
+    // 没有权限，退出登录
+    if (!permission.permissionRouter(to)) {
+      Modal.error({
+        title: i18n.global.t('base.noauth'),
+        content: '', // 服务端翻译好的提示文言
+        okText: i18n.global.t('button.ok'),
+        maskClosable: false,
+        async onOk() {
+          // 登出处理
+          const user = userStore()
+          await user.logout()
+        }
+      })
+      next({ name: 'login' })
+      return
+    }
     next()
   })
 }

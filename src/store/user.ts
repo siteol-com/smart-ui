@@ -3,11 +3,12 @@ import { RouteRecordRaw } from 'vue-router'
 import routers from '@/router/routers'
 import userMenuTree from '@/utils/hooks/menu'
 //import { logout as userLogout, getUserInfo } from '@/api/user'
-//import { authLogin, AuthLoginReq } from '@/api/open/auth'
+import { authMine, authLogout } from '@/api/base/auth'
 import { clearToken } from '@/utils/hooks/token'
 import { removeRouteListener } from '@/utils/routeListener'
 
 interface UserState {
+  accountId: Number
   name?: string
   avatar?: string
   permissions: string[] // 权限列表
@@ -16,18 +17,17 @@ interface UserState {
 
 const userStore = defineStore('user', {
   state: (): UserState => ({
+    accountId: 0,
     name: undefined,
     avatar: undefined,
     permissions: [],
     menusTree: []
   }),
-
   getters: {
     userInfo(state: UserState): UserState {
       return { ...state }
     }
   },
-
   actions: {
     initMenusTree() {
       const { recursionRouters } = userMenuTree()
@@ -38,34 +38,27 @@ const userStore = defineStore('user', {
     resetInfo() {
       this.$reset()
     },
-
     // Get user's information
-    async info() {
-      //const res = await getUserInfo()
-      //this.setInfo(res.data)
-    },
-
-    // 账号登入
-    async accountLogin(loginForm: any) {
+    async getUserInfo() {
       try {
-        //const res = await authLogin(loginForm)
-        // 设置登陆Token
-        //setToken(res.data.token)
-        console.log(loginForm)
+        const res = await authMine()
+        this.accountId = res.data.accountId
+        this.name = res.data.name
+        this.permissions = res.data.permissions
       } catch (err) {
-        // 登陆失败清理Token
-        // clearToken()
         throw err
       }
     },
     // 登出
     async logout() {
       try {
-        // await userLogout()
+        authLogout()
       } finally {
         this.resetInfo()
         clearToken()
         removeRouteListener()
+        // 跳去着陆页
+        window.location.replace('/login')
       }
     }
   }

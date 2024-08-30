@@ -26,7 +26,6 @@ export function CheckList(formData: any, idKey: string, valKey: string) {
   // 打开选择画面
   function open() {
     init()
-    console.log('open=>' + JSON.stringify(selectData.value))
     check.value = true
   }
   // 取消选择画面

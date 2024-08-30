@@ -29,6 +29,7 @@
         <a-space>
           <a-tooltip :content="$t('button.add')" :mini="true">
             <a-button
+              v-permission="'PlatDictAdd'"
               size="large"
               type="primary"
               status="danger"
@@ -44,14 +45,14 @@
       <a-col :span="12" class="doBtn">
         <a-space>
           <a-tooltip :content="$t('button.search')" :mini="true">
-            <a-button size="large" type="primary" @click="search">
+            <a-button v-permission="'PlatDictView'" size="large" type="primary" @click="search">
               <template #icon>
                 <icon-search />
               </template>
             </a-button>
           </a-tooltip>
           <a-tooltip :content="$t('button.reset')" :mini="true">
-            <a-button size="large" @click="resetQuery">
+            <a-button v-permission="'PlatDictView'" size="large" @click="resetQuery">
               <template #icon>
                 <icon-refresh />
               </template>
@@ -81,22 +82,28 @@
     <template #operations="{ record }">
       <a-space>
         <a-tooltip :content="$t('button.get')" :mini="true">
-          <a-button type="text" @click="pop.open('get', record.id, $t('dict.get'), record.groupKey, {}, search)">
+          <a-button
+            v-permission="'PlatDictView'"
+            type="text"
+            @click="pop.open('get', record.id, $t('dict.get'), record.groupKey, {}, search)">
             <template #icon> <icon-eye /> </template>
           </a-button>
         </a-tooltip>
         <a-tooltip :content="$t('button.edit')" :mini="true">
-          <a-button type="text" @click="pop.open('edit', record.id, $t('dict.edit'), record.groupKey, {}, search)">
+          <a-button
+            v-permission="'PlatDictEdit'"
+            type="text"
+            @click="pop.open('edit', record.id, $t('dict.edit'), record.groupKey, {}, search)">
             <template #icon> <icon-edit /> </template>
           </a-button>
         </a-tooltip>
         <a-tooltip :content="$t('button.sort')" :mini="true">
-          <a-button type="text" @click="openSort(record.groupKey)">
+          <a-button v-permission="'PlatDictSort'" type="text" @click="openSort(record.groupKey)">
             <template #icon> <icon-sort-ascending /> </template>
           </a-button>
         </a-tooltip>
         <a-tooltip :content="$t('button.lock')" :mini="true">
-          <a-button type="text" :disabled="record.mark === '1'" @click="openDelete(record)">
+          <a-button v-permission="'PlatDictDel'" type="text" :disabled="record.mark === '1'" @click="openDelete(record)">
             <template #icon> <icon-lock /> </template>
           </a-button>
         </a-tooltip>

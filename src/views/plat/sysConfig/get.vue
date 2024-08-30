@@ -95,6 +95,7 @@
           <div class="doBtn">
             <a-space>
               <a-button
+                v-permission="'PlatConfigEdit'"
                 size="large"
                 type="primary"
                 :loading="load"
@@ -104,7 +105,7 @@
                 </template>
                 {{ $t('button.edit') }}
               </a-button>
-              <a-button size="large" :loading="load" @click="get()">
+              <a-button v-permission="'PlatConfigView'" size="large" :loading="load" @click="get()">
                 <template #icon>
                   <icon-sync />
                 </template>

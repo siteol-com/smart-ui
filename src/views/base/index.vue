@@ -5,7 +5,7 @@
     </div>
     <div class="wel" :class="{ done: done }">
       <div class="welogo">
-        <img :src="logoImg" />
+        <img class="welbase" :src="logoImg" />
         <img class="welrun" :src="logoImg" />
       </div>
       <div class="welinfo">{{ $t(tips) }}</div>
@@ -96,6 +96,10 @@ onMounted(() => {
 
       img {
         display: block;
+      }
+      .welbase {
+        opacity: 1;
+        animation: fafa 1s linear infinite;
       }
       .welrun {
         position: absolute;

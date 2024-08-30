@@ -57,6 +57,9 @@ axios.interceptors.response.use(
     const { status, data } = response
     // 错误文言
     let msg = data ? data.msg : 'Request Error'
+    // 是Msg还是Box
+    let isBox = false
+    let boxTitle = 'base.nologin'
     // 处理错误
     switch (status) {
       // 400 请求数据不合法（校验失败）
@@ -67,31 +70,38 @@ axios.interceptors.response.use(
       // 401 未授权、未登陆
       // 403 禁止访问（无权限）
       case 401:
+        isBox = true
+        break
       case 403:
-        msg = data ? data.msg : 'Request Error'
-        if (modalUnOpen) {
-          modalUnOpen = false
-          Modal.error({
-            title: i18n.global.t('base.logout.noauth'),
-            content: '', // 服务端翻译好的提示文言
-            okText: i18n.global.t('button.ok'),
-            async onOk() {
-              // 登出处理
-              const user = userStore()
-              await user.logout()
-              // 跳去着陆页
-              window.location.replace('/')
-            }
-          })
-        }
-        return Promise.reject(error)
+        isBox = true
+        boxTitle = 'base.noauth'
+        break
       default:
         msg = error.msg
     }
-    Message.error({
-      content: msg || error.msg || 'Request Error',
-      duration: 5 * 1000
-    })
+    // 如果是box
+    if (isBox) {
+      if (modalUnOpen) {
+        modalUnOpen = false
+        Modal.error({
+          title: i18n.global.t(boxTitle),
+          content: '', // 服务端翻译好的提示文言
+          okText: i18n.global.t('button.ok'),
+          maskClosable: false,
+          async onOk() {
+            modalUnOpen = true
+            // 登出处理
+            const user = userStore()
+            await user.logout()
+          }
+        })
+      }
+    } else {
+      Message.error({
+        content: msg || error.msg || 'Request Error',
+        duration: 5 * 1000
+      })
+    }
     return Promise.reject(error)
   }
 )

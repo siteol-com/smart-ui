@@ -142,7 +142,6 @@ const selectedKeys = ref<any>([])
 const selectedItems = ref<any>([])
 // 去掉响应式
 const { data } = props
-console.log(JSON.stringify(data))
 // 初始化赋值
 selectedItems.value = data.selectedItems
 selectedKeys.value = data.selectedKeys
@@ -155,11 +154,6 @@ function selectKeys(keys: (string | number)[], thisKey: string | number, item: a
       return i.id !== thisKey
     })
   }
-  // // 传值给父级
-  // const cacheKeys: any[] = []
-  // selectedItems.value.forEach((i: any) => {
-  //   cacheKeys.push(i.id)
-  // })
   props.doSelect(selectedItems.value, keys)
 }
 

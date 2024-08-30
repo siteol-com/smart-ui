@@ -2,7 +2,7 @@
   <a-col :span="24" class="doBtn treeBtn">
     <a-space>
       <a-tooltip :content="$t('button.sync')" :mini="true">
-        <a-button size="large" @click="refresh()">
+        <a-button v-permission="'PlatPermissionView'" size="large" @click="refresh()">
           <template #icon>
             <icon-sync />
           </template>
@@ -11,6 +11,7 @@
       <!-- 创建子集，3层不可 -->
       <a-tooltip :content="$t('button.add.sub')" :mini="true">
         <a-button
+          v-permission="'PlatPermissionAdd'"
           size="large"
           :disabled="!data.level || data.level == '3'"
           type="primary"
@@ -24,6 +25,7 @@
       <!-- 编辑，根节点不可 -->
       <a-tooltip :content="$t('button.edit')" :mini="true">
         <a-button
+          v-permission="'PlatPermissionEdit'"
           size="large"
           :disabled="!data.level || data.id == 1"
           type="primary"
@@ -36,7 +38,12 @@
       </a-tooltip>
       <!-- 同级排序 -->
       <a-tooltip :content="$t('button.sort')" :mini="true">
-        <a-button size="large" :disabled="!data.level || data.id == 1" type="primary" @click="confirmSort()">
+        <a-button
+          v-permission="'PlatPermissionSort'"
+          size="large"
+          :disabled="!data.level || data.id == 1"
+          type="primary"
+          @click="confirmSort()">
           <template #icon>
             <icon-sort-ascending />
           </template>
@@ -44,7 +51,7 @@
       </a-tooltip>
       <!-- 删除，根节点不可 -->
       <a-tooltip :content="$t('button.delete')" :mini="true">
-        <a-button size="large" :disabled="!data.level || data.id == 1" @click="confirmDelete()">
+        <a-button v-permission="'PlatPermissionDel'" size="large" :disabled="!data.level || data.id == 1" @click="confirmDelete()">
           <template #icon>
             <icon-delete />
           </template>

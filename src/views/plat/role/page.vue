@@ -11,6 +11,7 @@
         <a-space>
           <a-tooltip :content="$t('button.add')" :mini="true">
             <a-button
+              v-permission="'PlatRoleAdd'"
               size="large"
               type="primary"
               status="danger"
@@ -26,14 +27,14 @@
       <a-col :span="12" class="doBtn">
         <a-space>
           <a-tooltip :content="$t('button.search')" :mini="true">
-            <a-button size="large" type="primary" @click="search">
+            <a-button v-permission="'PlatRoleView'" size="large" type="primary" @click="search">
               <template #icon>
                 <icon-search />
               </template>
             </a-button>
           </a-tooltip>
           <a-tooltip :content="$t('button.reset')" :mini="true">
-            <a-button size="large" @click="resetQuery">
+            <a-button v-permission="'PlatRoleView'" size="large" @click="resetQuery">
               <template #icon>
                 <icon-refresh />
               </template>
@@ -57,17 +58,23 @@
     <template #operations="{ record }">
       <a-space>
         <a-tooltip :content="$t('button.get')" :mini="true">
-          <a-button type="text" @click="pop.open('get', record.id, $t('role.get'), record.code, {}, search)">
+          <a-button
+            v-permission="'PlatRoleView'"
+            type="text"
+            @click="pop.open('get', record.id, $t('role.get'), record.code, {}, search)">
             <template #icon> <icon-eye /> </template>
           </a-button>
         </a-tooltip>
         <a-tooltip :content="$t('button.edit')" :mini="true">
-          <a-button type="text" @click="pop.open('edit', record.id, $t('role.edit'), record.code, {}, search)">
+          <a-button
+            v-permission="'PlatRoleEdit'"
+            type="text"
+            @click="pop.open('edit', record.id, $t('role.edit'), record.code, {}, search)">
             <template #icon> <icon-edit /> </template>
           </a-button>
         </a-tooltip>
         <a-tooltip :content="$t('button.delete')" :mini="true">
-          <a-button type="text" :disabled="record.mark === '1'" @click="openDelete(record)">
+          <a-button v-permission="'PlatRoleDel'" type="text" :disabled="record.mark === '1'" @click="openDelete(record)">
             <template #icon> <icon-delete /> </template>
           </a-button>
         </a-tooltip>
